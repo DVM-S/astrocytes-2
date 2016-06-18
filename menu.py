@@ -12,13 +12,15 @@ def load_game_1():
 
 
 class Menu:
-    def __init__(self, screen):
+    def __init__(self, screen, event_stream):
         self.screen = screen
         self.background = pygame.transform.scale(IMAGE_MENU, self.screen.get_size())
 
-    def render(self):
-        self.screen.blit(self.background, (0, 0))
+        self.event_stream = event_stream
 
+        self.render_buttons()
+
+    def render_buttons(self):
         (width, height) = self.screen.get_size()
 
         self.game_1 = Button(
@@ -71,5 +73,20 @@ class Menu:
             bg=COLOR_GREEN,
             text=Text('Game 5', FONT_ROBOTO)
         )
+
+        self.event_stream.subscribe(self.game_1.on_click)
+        self.event_stream.subscribe(self.game_2.on_click)
+        self.event_stream.subscribe(self.game_3.on_click)
+        self.event_stream.subscribe(self.game_4.on_click)
+        self.event_stream.subscribe(self.game_5.on_click)
+
+    def render(self):
+        self.screen.blit(self.background, (0, 0))
+
+        self.game_1.render(self.screen)
+        self.game_2.render(self.screen)
+        self.game_3.render(self.screen)
+        self.game_4.render(self.screen)
+        self.game_5.render(self.screen)
 
         pygame.display.update()

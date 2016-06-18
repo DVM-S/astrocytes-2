@@ -11,11 +11,11 @@ class Astrocytes:
         self.screen = pygame.display.set_mode(size, pygame.DOUBLEBUF | pygame.HWSURFACE)
         self.background = pygame.Surface(self.screen.get_size())
 
-        self.render = 'menu'
-        self.menu = Menu(self.screen)
-
         self.event_stream = Subject()
         self.event_stream.subscribe(self.event_handler)
+
+        self.render = 'menu'
+        self.menu = Menu(self.screen, self.event_stream)
 
         pygame.display.set_caption('Astrocytes')
 

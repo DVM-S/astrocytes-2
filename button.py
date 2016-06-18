@@ -24,19 +24,23 @@ class Button:
 
         self.render(screen)
 
-    def click(self, pos, btn):
-        if (
-            (self.x < pos[0] and pos[0] < self.x + self.w) and
-            (self.y < pos[1] and pos[1] < self.y + self.h)
-        ):
-            if btn[0] == 1:
-                self.left_click_callback()
+    def on_click(self, e):
+        if e.type == pygame.MOUSEBUTTONDOWN:
+            if (
+                (self.x < e.pos[0] and e.pos[0] < self.x + self.w) and
+                (self.y < e.pos[1] and e.pos[1] < self.y + self.h)
+            ):
+                if e.button == 1:
+                    if self.left_click_callback:
+                        self.left_click_callback()
 
-            elif btn[1] == 1:
-                self.middle_click_callback()
+                elif e.button == 2:
+                    if self.middle_click_callback:
+                        self.middle_click_callback()
 
-            elif btn[2] == 1:
-                self.right_click_callback()
+                elif e.button == 3:
+                    if self.right_click_callback:
+                        self.right_click_callback()
 
     def render(self, screen):
         if isinstance(self.bg, pygame.Surface):
@@ -52,7 +56,3 @@ class Button:
 
         if self.text:
             self.text.render(screen, surface_rect)
-
-        mouse_pos = pygame.mouse.get_pos()
-        mouse_btn = pygame.mouse.get_pressed()
-        self.click(mouse_pos, mouse_btn)
