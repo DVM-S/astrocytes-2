@@ -17,8 +17,22 @@ class Astrocytes:
     def run(self):
         while True:
             event = pygame.event.wait()
+            self.check_exit(event)
+
             if self.render == 'menu':
                 self.menu.render()
+
+    def check_exit(self, e):
+        if e.type == pygame.QUIT:
+            pygame.quit()
+            quit()
+
+        elif (e.type == pygame.KEYDOWN):
+            if e.key == pygame.K_F4:
+                if bool(e.mod & pygame.KMOD_ALT):
+                    pygame.quit()
+                    quit()
+
 
 if __name__ == '__main__':
     pygame.init()
