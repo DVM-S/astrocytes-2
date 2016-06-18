@@ -1,4 +1,9 @@
 import pygame
+from text import Text
+
+pygame.init()
+
+ROBOTO = pygame.font.Font('fonts/roboto/Roboto-Regular.ttf', 20)
 
 
 class Menu:
@@ -13,7 +18,8 @@ class Menu:
 
         (width, height) = self.screen.get_size()
 
-        pygame.draw.rect(
+        text = Text('Game 1', ROBOTO)
+        btn = pygame.draw.rect(
             self.screen,
             (255, 0, 0),
             (
@@ -23,6 +29,7 @@ class Menu:
                 (143 / 768.0) * height
             )
         )
+        text.render(self.screen, btn)
 
         pygame.draw.rect(
             self.screen,
@@ -63,17 +70,6 @@ class Menu:
             (
                 (22 / 1024.0) * width,
                 (420 / 768.0) * height,
-                (143 / 1024.0) * width,
-                (143 / 768.0) * height
-            )
-        )
-
-        pygame.draw.rect(
-            self.screen,
-            (255, 0, 0),
-            (
-                (345 / 1024.0) * width,
-                (94 / 768.0) * height,
                 (143 / 1024.0) * width,
                 (143 / 768.0) * height
             )
