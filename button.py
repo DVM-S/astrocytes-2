@@ -7,7 +7,8 @@ pygame.init()
 
 
 class Button:
-    def __init__(self, screen, (x, y, w, h), bg, fg=None, text=None):
+    def __init__(self, screen, (x, y, w, h), bg, fg=None, text=None,
+                 on_left_click=None, on_middle_click=None, on_right_click=None):
         self.x = x
         self.y = y
         self.w = w
@@ -15,8 +16,11 @@ class Button:
 
         self.bg = bg
         self.fg = fg
-
         self.text = text
+
+        self.left_click_callback = on_left_click
+        self.middle_click_callback = on_middle_click
+        self.right_click_callback = on_right_click
 
         self.render(screen)
 
@@ -26,11 +30,13 @@ class Button:
             (self.y < pos[1] and pos[1] < self.y + self.h)
         ):
             if btn[0] == 1:
-                print 'left click'
-            if btn[1] == 1:
-                print 'mid click'
-            if btn[2] == 1:
-                print 'right click'
+                self.left_click_callback()
+
+            elif btn[1] == 1:
+                self.middle_click_callback()
+
+            elif btn[2] == 1:
+                self.right_click_callback()
 
     def render(self, screen):
         if isinstance(self.bg, pygame.Surface):

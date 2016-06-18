@@ -7,6 +7,10 @@ from text import Text
 pygame.init()
 
 
+def load_game_1():
+    print 'GAME 1 LOADED'
+
+
 class Menu:
     def __init__(self, screen):
         self.screen = screen
@@ -24,7 +28,8 @@ class Menu:
                 (143 / 1024.0) * width,
                 (143 / 768.0) * height),
             bg=COLOR_GREEN,
-            text=Text('Game 1', FONT_ROBOTO)
+            text=Text('Game 1', FONT_ROBOTO),
+            on_left_click=load_game_1
         )
 
         self.game_2 = Button(
