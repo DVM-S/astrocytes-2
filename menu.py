@@ -16,12 +16,13 @@ class Menu:
         self.screen = screen
         self.background = pygame.transform.scale(IMAGE_MENU, self.screen.get_size())
 
+        self.init_buttons()
         EVENT_STREAM.subscribe(self.event_handler)
 
     def event_handler(self, e):
         pass
 
-    def render_buttons(self):
+    def init_buttons(self):
         (width, height) = self.screen.get_size()
 
         self.game_1 = Button(
@@ -78,7 +79,6 @@ class Menu:
     def render(self):
         self.screen.blit(self.background, (0, 0))
 
-        self.render_buttons()
         self.game_1.render(self.screen)
         self.game_2.render(self.screen)
         self.game_3.render(self.screen)

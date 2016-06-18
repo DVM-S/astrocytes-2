@@ -25,25 +25,25 @@ class Button:
         EVENT_STREAM.subscribe(self.event_handler)
 
     def event_handler(self, e):
-        self.on_click(e)
+        if e.type == pygame.MOUSEBUTTONDOWN:
+            self.on_click(e)
 
     def on_click(self, e):
-        if e.type == pygame.MOUSEBUTTONDOWN:
-            if (
-                (self.x < e.pos[0] and e.pos[0] < self.x + self.w) and
-                (self.y < e.pos[1] and e.pos[1] < self.y + self.h)
-            ):
-                if e.button == 1:
-                    if self.left_click_callback:
-                        self.left_click_callback()
+        if (
+            (self.x < e.pos[0] and e.pos[0] < self.x + self.w) and
+            (self.y < e.pos[1] and e.pos[1] < self.y + self.h)
+        ):
+            if e.button == 1:
+                if self.left_click_callback:
+                    self.left_click_callback()
 
-                elif e.button == 2:
-                    if self.middle_click_callback:
-                        self.middle_click_callback()
+            elif e.button == 2:
+                if self.middle_click_callback:
+                    self.middle_click_callback()
 
-                elif e.button == 3:
-                    if self.right_click_callback:
-                        self.right_click_callback()
+            elif e.button == 3:
+                if self.right_click_callback:
+                    self.right_click_callback()
 
     def render(self, screen):
         if isinstance(self.bg, pygame.Surface):
