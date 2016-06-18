@@ -1,10 +1,11 @@
+from utils import COLOR_BLACK
 import pygame
 
 pygame.init()
 
 
 class Text:
-    def __init__(self, text, font, color=(0, 0, 0), align='center center'):
+    def __init__(self, text, font, color=COLOR_BLACK, align='center center'):
         self.text_surface = font.render(text, True, color)
         self.align = align
 

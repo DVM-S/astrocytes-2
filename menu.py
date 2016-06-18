@@ -1,27 +1,24 @@
+from utils import COLOR_RED, FONT_ROBOTO, IMAGE_MENU
 import pygame
 from text import Text
 
 pygame.init()
 
-ROBOTO = pygame.font.Font('fonts/roboto/Roboto-Regular.ttf', 20)
-
 
 class Menu:
     def __init__(self, screen):
         self.screen = screen
-        self.background = pygame.transform.scale(
-            pygame.image.load('menu.png'),
-            self.screen.get_size())
+        self.background = pygame.transform.scale(IMAGE_MENU, self.screen.get_size())
 
     def render(self):
         self.screen.blit(self.background, (0, 0))
 
         (width, height) = self.screen.get_size()
 
-        text = Text('Game 1', ROBOTO)
+        text = Text('Game 1', FONT_ROBOTO)
         btn = pygame.draw.rect(
             self.screen,
-            (255, 0, 0),
+            COLOR_RED,
             (
                 (345 / 1024.0) * width,
                 (94 / 768.0) * height,
@@ -33,7 +30,7 @@ class Menu:
 
         pygame.draw.rect(
             self.screen,
-            (255, 0, 0),
+            COLOR_RED,
             (
                 (345 / 1024.0) * width,
                 (257 / 768.0) * height,
@@ -44,7 +41,7 @@ class Menu:
 
         pygame.draw.rect(
             self.screen,
-            (255, 0, 0),
+            COLOR_RED,
             (
                 (345 / 1024.0) * width,
                 (420 / 768.0) * height,
@@ -55,7 +52,7 @@ class Menu:
 
         pygame.draw.rect(
             self.screen,
-            (255, 0, 0),
+            COLOR_RED,
             (
                 (184 / 1024.0) * width,
                 (420 / 768.0) * height,
@@ -66,7 +63,7 @@ class Menu:
 
         pygame.draw.rect(
             self.screen,
-            (255, 0, 0),
+            COLOR_RED,
             (
                 (22 / 1024.0) * width,
                 (420 / 768.0) * height,
