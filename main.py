@@ -17,7 +17,6 @@ class Astrocytes:
     def run(self):
         while True:
             event = pygame.event.wait()
-            print event
             if self.render == 'menu':
                 self.menu.render()
 
