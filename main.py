@@ -1,6 +1,5 @@
+from utils import EVENT_STREAM
 import pygame
-
-from rx.subjects import Subject
 
 from menu import Menu
 
@@ -11,11 +10,10 @@ class Astrocytes:
         self.screen = pygame.display.set_mode(size, pygame.DOUBLEBUF | pygame.HWSURFACE)
         self.background = pygame.Surface(self.screen.get_size())
 
-        self.event_stream = Subject()
-        self.event_stream.subscribe(self.event_handler)
+        EVENT_STREAM.subscribe(self.event_handler)
 
         self.render = 'menu'
-        self.menu = Menu(self.screen, self.event_stream)
+        self.menu = Menu(self.screen)
 
         pygame.display.set_caption('Astrocytes')
 
@@ -24,7 +22,7 @@ class Astrocytes:
 
     def run(self):
         while True:
-            self.event_stream.on_next(pygame.event.wait())
+            EVENT_STREAM.on_next(pygame.event.wait())
 
             if self.render == 'menu':
                 self.menu.render()
