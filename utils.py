@@ -3,8 +3,10 @@ from rx.subjects import Subject
 
 pygame.init()
 
+
 # EVENT STREAM
 EVENT_STREAM = Subject()
+
 
 # COLORS
 COLOR_BLACK = (0, 0, 0)

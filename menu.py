@@ -17,10 +17,6 @@ class Menu:
         self.background = pygame.transform.scale(IMAGE_MENU, self.screen.get_size())
 
         self.init_buttons()
-        EVENT_STREAM.subscribe(self.event_handler)
-
-    def event_handler(self, e):
-        pass
 
     def init_buttons(self):
         (width, height) = self.screen.get_size()

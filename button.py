@@ -1,8 +1,6 @@
 from utils import FONT_ROBOTO, IMAGE_MENU, EVENT_STREAM
 import pygame
 
-from text import Text
-
 pygame.init()
 
 

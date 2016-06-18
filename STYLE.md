@@ -10,3 +10,5 @@
   1. Needed frequently
   2. Needed in multiple components
   3. Loaded from a file (ex: audio, images, fonts etc)
+6. Each component that is concerned with pygame events must have an `event_handler` method, which may call other member functionss
+7. THe `event_handler` member must be placed right after `__init__`
