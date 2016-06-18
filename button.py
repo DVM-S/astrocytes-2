@@ -1,4 +1,4 @@
-from utils import FONT_ROBOTO, IMAGE_MENU
+from utils import FONT_ROBOTO, IMAGE_MENU, EVENT_STREAM
 import pygame
 
 from text import Text
@@ -22,7 +22,10 @@ class Button:
         self.middle_click_callback = on_middle_click
         self.right_click_callback = on_right_click
 
-        self.render(screen)
+        EVENT_STREAM.subscribe(self.event_handler)
+
+    def event_handler(self, e):
+        self.on_click(e)
 
     def on_click(self, e):
         if e.type == pygame.MOUSEBUTTONDOWN:

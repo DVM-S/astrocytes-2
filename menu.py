@@ -16,7 +16,10 @@ class Menu:
         self.screen = screen
         self.background = pygame.transform.scale(IMAGE_MENU, self.screen.get_size())
 
-        self.render_buttons()
+        EVENT_STREAM.subscribe(self.event_handler)
+
+    def event_handler(self, e):
+        pass
 
     def render_buttons(self):
         (width, height) = self.screen.get_size()
@@ -72,15 +75,10 @@ class Menu:
             text=Text('Game 5', FONT_ROBOTO)
         )
 
-        EVENT_STREAM.subscribe(self.game_1.on_click)
-        EVENT_STREAM.subscribe(self.game_2.on_click)
-        EVENT_STREAM.subscribe(self.game_3.on_click)
-        EVENT_STREAM.subscribe(self.game_4.on_click)
-        EVENT_STREAM.subscribe(self.game_5.on_click)
-
     def render(self):
         self.screen.blit(self.background, (0, 0))
 
+        self.render_buttons()
         self.game_1.render(self.screen)
         self.game_2.render(self.screen)
         self.game_3.render(self.screen)
