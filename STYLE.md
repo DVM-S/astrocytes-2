@@ -6,3 +6,7 @@
   2. If data manipulation is needed, separate method must be created and called.
 3. In each component class, member functoins must be placed alphabetically. The `render` method must be placed at the bottom.
 4. Any sub-render method (ex: `render_button`, `render_title` etc) must be placed before render, in alphabetically.
+5. Any data that belongs to any of the following categories, must be kept in `utils.py`:
+  1. Needed frequently
+  2. Needed in multiple components
+  3. Loaded from a file (ex: audio, images, fonts etc)
