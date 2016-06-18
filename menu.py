@@ -1,5 +1,7 @@
-from utils import COLOR_RED, FONT_ROBOTO, IMAGE_MENU
+from utils import COLOR_GREEN, FONT_ROBOTO, IMAGE_MENU
 import pygame
+
+from button import Button
 from text import Text
 
 pygame.init()
@@ -15,61 +17,54 @@ class Menu:
 
         (width, height) = self.screen.get_size()
 
-        text = Text('Game 1', FONT_ROBOTO)
-        btn = pygame.draw.rect(
-            self.screen,
-            COLOR_RED,
-            (
+        self.game_1 = Button(
+            self.screen, (
                 (345 / 1024.0) * width,
                 (94 / 768.0) * height,
                 (143 / 1024.0) * width,
-                (143 / 768.0) * height
-            )
+                (143 / 768.0) * height),
+            bg=COLOR_GREEN,
+            text=Text('Game 1', FONT_ROBOTO)
         )
-        text.render(self.screen, btn)
 
-        pygame.draw.rect(
-            self.screen,
-            COLOR_RED,
-            (
+        self.game_2 = Button(
+            self.screen, (
                 (345 / 1024.0) * width,
                 (257 / 768.0) * height,
                 (143 / 1024.0) * width,
-                (143 / 768.0) * height
-            )
+                (143 / 768.0) * height),
+            bg=COLOR_GREEN,
+            text=Text('Game 2', FONT_ROBOTO)
         )
 
-        pygame.draw.rect(
-            self.screen,
-            COLOR_RED,
-            (
+        self.game_3 = Button(
+            self.screen, (
                 (345 / 1024.0) * width,
                 (420 / 768.0) * height,
                 (143 / 1024.0) * width,
-                (143 / 768.0) * height
-            )
+                (143 / 768.0) * height),
+            bg=COLOR_GREEN,
+            text=Text('Game 3', FONT_ROBOTO)
         )
 
-        pygame.draw.rect(
-            self.screen,
-            COLOR_RED,
-            (
+        self.game_4 = Button(
+            self.screen, (
                 (184 / 1024.0) * width,
                 (420 / 768.0) * height,
                 (143 / 1024.0) * width,
-                (143 / 768.0) * height
-            )
+                (143 / 768.0) * height),
+            bg=IMAGE_MENU,
+            text=Text('Game 4', FONT_ROBOTO)
         )
 
-        pygame.draw.rect(
-            self.screen,
-            COLOR_RED,
-            (
+        self.game_5 = Button(
+            self.screen, (
                 (22 / 1024.0) * width,
                 (420 / 768.0) * height,
                 (143 / 1024.0) * width,
-                (143 / 768.0) * height
-            )
+                (143 / 768.0) * height),
+            bg=COLOR_GREEN,
+            text=Text('Game 5', FONT_ROBOTO)
         )
 
         pygame.display.update()
