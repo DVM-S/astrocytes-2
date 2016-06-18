@@ -1,4 +1,4 @@
-from utils import COLOR_GREEN, FONT_ROBOTO, IMAGE_MENU
+from utils import COLOR_GREEN, FONT_ROBOTO, IMAGE_MENU, EVENT_STREAM
 import pygame
 
 from button import Button
@@ -7,14 +7,22 @@ from text import Text
 pygame.init()
 
 
+def load_game_1():
+    print 'GAME 1 LOADED'
+
+
 class Menu:
     def __init__(self, screen):
         self.screen = screen
         self.background = pygame.transform.scale(IMAGE_MENU, self.screen.get_size())
 
-    def render(self):
-        self.screen.blit(self.background, (0, 0))
+        self.init_buttons()
+        EVENT_STREAM.subscribe(self.event_handler)
 
+    def event_handler(self, e):
+        pass
+
+    def init_buttons(self):
         (width, height) = self.screen.get_size()
 
         self.game_1 = Button(
@@ -24,7 +32,8 @@ class Menu:
                 (143 / 1024.0) * width,
                 (143 / 768.0) * height),
             bg=COLOR_GREEN,
-            text=Text('Game 1', FONT_ROBOTO)
+            text=Text('Game 1', FONT_ROBOTO),
+            on_left_click=load_game_1
         )
 
         self.game_2 = Button(
@@ -66,5 +75,14 @@ class Menu:
             bg=COLOR_GREEN,
             text=Text('Game 5', FONT_ROBOTO)
         )
+
+    def render(self):
+        self.screen.blit(self.background, (0, 0))
+
+        self.game_1.render(self.screen)
+        self.game_2.render(self.screen)
+        self.game_3.render(self.screen)
+        self.game_4.render(self.screen)
+        self.game_5.render(self.screen)
 
         pygame.display.update()

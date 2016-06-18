@@ -1,4 +1,4 @@
-from utils import FONT_ROBOTO, IMAGE_MENU
+from utils import FONT_ROBOTO, IMAGE_MENU, EVENT_STREAM
 import pygame
 
 from text import Text
@@ -7,7 +7,8 @@ pygame.init()
 
 
 class Button:
-    def __init__(self, screen, (x, y, w, h), bg, fg=None, text=None):
+    def __init__(self, screen, (x, y, w, h), bg, fg=None, text=None,
+                 on_left_click=None, on_middle_click=None, on_right_click=None):
         self.x = x
         self.y = y
         self.w = w
@@ -15,22 +16,34 @@ class Button:
 
         self.bg = bg
         self.fg = fg
-
         self.text = text
 
-        self.render(screen)
+        self.left_click_callback = on_left_click
+        self.middle_click_callback = on_middle_click
+        self.right_click_callback = on_right_click
 
-    def click(self, pos, btn):
+        EVENT_STREAM.subscribe(self.event_handler)
+
+    def event_handler(self, e):
+        if e.type == pygame.MOUSEBUTTONDOWN:
+            self.on_click(e)
+
+    def on_click(self, e):
         if (
-            (self.x < pos[0] and pos[0] < self.x + self.w) and
-            (self.y < pos[1] and pos[1] < self.y + self.h)
+            (self.x < e.pos[0] and e.pos[0] < self.x + self.w) and
+            (self.y < e.pos[1] and e.pos[1] < self.y + self.h)
         ):
-            if btn[0] == 1:
-                print 'left click'
-            if btn[1] == 1:
-                print 'mid click'
-            if btn[2] == 1:
-                print 'right click'
+            if e.button == 1:
+                if self.left_click_callback:
+                    self.left_click_callback()
+
+            elif e.button == 2:
+                if self.middle_click_callback:
+                    self.middle_click_callback()
+
+            elif e.button == 3:
+                if self.right_click_callback:
+                    self.right_click_callback()
 
     def render(self, screen):
         if isinstance(self.bg, pygame.Surface):
@@ -46,7 +59,3 @@ class Button:
 
         if self.text:
             self.text.render(screen, surface_rect)
-
-        mouse_pos = pygame.mouse.get_pos()
-        mouse_btn = pygame.mouse.get_pressed()
-        self.click(mouse_pos, mouse_btn)

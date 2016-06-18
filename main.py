@@ -1,3 +1,4 @@
+from utils import EVENT_STREAM
 import pygame
 
 from menu import Menu
@@ -12,12 +13,15 @@ class Astrocytes:
         self.render = 'menu'
         self.menu = Menu(self.screen)
 
+        EVENT_STREAM.subscribe(self.event_handler)
         pygame.display.set_caption('Astrocytes')
+
+    def event_handler(self, e):
+        self.check_exit(e)
 
     def run(self):
         while True:
-            event = pygame.event.wait()
-            self.check_exit(event)
+            EVENT_STREAM.on_next(pygame.event.wait())
 
             if self.render == 'menu':
                 self.menu.render()
