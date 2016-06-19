@@ -19,7 +19,3 @@ COLOR_WHITE = (255, 255, 255)
 
 # FONTS
 FONT_ROBOTO = pygame.font.Font('fonts/roboto/Roboto-Regular.ttf', 20)
-
-
-# IMAGES
-IMAGE_MENU = pygame.image.load('menu.png')

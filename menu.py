@@ -1,4 +1,4 @@
-from utils import COLOR_GREEN, FONT_ROBOTO, IMAGE_MENU, EVENT_STREAM
+from utils import COLOR_GREEN, FONT_ROBOTO, EVENT_STREAM
 import pygame
 
 from button import Button
@@ -6,6 +6,7 @@ from text import Text
 
 pygame.init()
 
+MENU_BG = pygame.image.load('menu.png')
 
 def load_game_1():
     print 'GAME 1 LOADED'
@@ -14,7 +15,7 @@ def load_game_1():
 class Menu:
     def __init__(self, screen):
         self.screen = screen
-        self.background = pygame.transform.scale(IMAGE_MENU, self.screen.get_size())
+        self.background = pygame.transform.scale(MENU_BG, self.screen.get_size())
 
         self.init_buttons()
 
@@ -58,7 +59,7 @@ class Menu:
                 (420 / 768.0) * height,
                 (143 / 1024.0) * width,
                 (143 / 768.0) * height),
-            bg=IMAGE_MENU,
+            bg=MENU_BG,
             text=Text('Game 4', FONT_ROBOTO)
         )
 
