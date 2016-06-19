@@ -1,4 +1,4 @@
-from utils import ACTIVE, EVENT_STREAM, SCREEN, SCREEN_SIZE
+from utils import ACTIVE, EVENT_STREAM, KINECT, POST_NEW_BODY_FRAME_EVENT, SCREEN, SCREEN_SIZE
 import pygame
 
 from menu import Menu
@@ -24,6 +24,7 @@ class Astrocytes:
             if ACTIVE['CURR'] == 'menu':
                 self.menu.render()
             elif ACTIVE['CURR'] == 'game_1':
+                POST_NEW_BODY_FRAME_EVENT(body_frame=KINECT.get_last_body_frame())
                 self.game_1.render()
 
     def check_exit(self, e):
