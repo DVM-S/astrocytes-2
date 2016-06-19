@@ -68,6 +68,7 @@ def draw_player(frame, target_surface, xy=(0, 0)):
     frame[show] = 255
 
     frame = np.array((frame, frame, frame, frame))
+    (r, g, b, a) = frame
 
     frame = np.ravel(frame.T)
     target_surface.lock()
