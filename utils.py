@@ -73,6 +73,7 @@ def render_player(frame):
 
     frame = np.array((frame, frame, frame, frame))
     (r, g, b, a) = frame
+    r[r == 255] = 100
 
     frame = np.ravel(frame.T)
     PLAYER.lock()
