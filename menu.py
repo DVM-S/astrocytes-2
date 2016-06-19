@@ -1,4 +1,10 @@
-from utils import ACTIVE, COLOR_GREEN, EVENT_STREAM, FONT_ROBOTO, SCREEN, SCREEN_SIZE
+from utils import (
+    ACTIVE,
+    COLOR_GREEN,
+    FONT_ROBOTO,
+    SCREEN,
+    SCREEN_SIZE)
+
 import pygame
 
 from button import Button

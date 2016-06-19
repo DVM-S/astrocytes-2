@@ -1,4 +1,12 @@
-from utils import KINECT_EVENT_STREAM, KINECT, NEW_BODY_FRAME_EVENT, NEW_BODY_INDEX_FRAME_EVENT, SCREEN, SCREEN_SIZE, draw_player
+from utils import (
+    draw_player,
+    KINECT,
+    KINECT_EVENT_STREAM,
+    NEW_BODY_FRAME_EVENT,
+    NEW_BODY_INDEX_FRAME_EVENT,
+    SCREEN,
+    SCREEN_SIZE)
+
 from math import atan2, degrees, pi
 from pykinect2 import PyKinectV2
 import pygame
@@ -29,9 +37,9 @@ class Game_1:
             draw_player(
                 self.body_index_frame,
                 pygame.Surface(
-                    (KINECT.body_index_frame_desc.Width, KINECT.body_index_frame_desc.Height),
-                    0, 32
-                ).convert_alpha()
-            )
+                    (
+                        KINECT.body_index_frame_desc.Width,
+                        KINECT.body_index_frame_desc.Height),
+                    0, 32).convert_alpha())
 
         pygame.display.update()

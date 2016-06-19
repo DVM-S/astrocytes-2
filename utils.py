@@ -1,11 +1,10 @@
-import pygame
 from rx.subjects import Subject
+import ctypes
+import numpy as np
+import pygame
 
 from pykinect2 import PyKinectV2
 from pykinect2 import PyKinectRuntime
-
-import numpy as np
-import ctypes
 
 
 pygame.init()
@@ -15,13 +14,14 @@ pygame.init()
 KINECT = PyKinectRuntime.PyKinectRuntime(
     PyKinectV2.FrameSourceTypes_Body |
     PyKinectV2.FrameSourceTypes_Color |
-    PyKinectV2.FrameSourceTypes_BodyIndex
-)
+    PyKinectV2.FrameSourceTypes_BodyIndex)
 
 EVENT_STREAM = Subject()
 KINECT_EVENT_STREAM = Subject()
 SCREEN_SIZE = (512, 384)
-SCREEN = pygame.display.set_mode(SCREEN_SIZE, pygame.DOUBLEBUF | pygame.HWSURFACE)
+SCREEN = pygame.display.set_mode(
+    SCREEN_SIZE, pygame.DOUBLEBUF |
+    pygame.HWSURFACE)
 
 NEW_BODY_FRAME_EVENT = 1 + pygame.USEREVENT
 NEW_BODY_INDEX_FRAME_EVENT = 2 + pygame.USEREVENT

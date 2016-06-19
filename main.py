@@ -1,8 +1,16 @@
-from utils import ACTIVE, EVENT_STREAM, KINECT, POST_NEW_BODY_FRAME_EVENT, POST_NEW_BODY_INDEX_FRAME_EVENT, SCREEN, SCREEN_SIZE
+from utils import (
+    ACTIVE,
+    EVENT_STREAM,
+    KINECT,
+    POST_NEW_BODY_FRAME_EVENT,
+    POST_NEW_BODY_INDEX_FRAME_EVENT,
+    SCREEN,
+    SCREEN_SIZE)
+
 import pygame
 
-from menu import Menu
 from game_1 import Game_1
+from menu import Menu
 
 
 class Astrocytes:
@@ -30,10 +38,12 @@ class Astrocytes:
 
             elif ACTIVE['CURR'] == 'game_1':
                 if KINECT.has_new_body_frame():
-                    POST_NEW_BODY_FRAME_EVENT(body_frame=KINECT.get_last_body_frame())
+                    POST_NEW_BODY_FRAME_EVENT(
+                        body_frame=KINECT.get_last_body_frame())
 
                 if KINECT.has_new_body_index_frame():
-                    POST_NEW_BODY_INDEX_FRAME_EVENT(body_index_frame=KINECT.get_last_body_index_frame())
+                    POST_NEW_BODY_INDEX_FRAME_EVENT(
+                        body_index_frame=KINECT.get_last_body_index_frame())
 
                 self.game_1.render()
 
