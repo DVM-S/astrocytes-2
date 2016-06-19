@@ -8,6 +8,11 @@ pygame.init()
 EVENT_STREAM = Subject()
 SCREEN_SIZE = (512, 384)
 SCREEN = pygame.display.set_mode(SCREEN_SIZE, pygame.DOUBLEBUF | pygame.HWSURFACE)
+ACTIVE = {'CURR': 'menu', 'PREV': None}
+
+
+# GLOBAL CONSTANTS
+KINECT_BODY_FRAMES = 'KINECT_BODY_FRAMES'
 
 
 # COLORS
