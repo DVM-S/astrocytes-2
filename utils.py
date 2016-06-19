@@ -19,6 +19,7 @@ KINECT = PyKinectRuntime.PyKinectRuntime(
 )
 
 EVENT_STREAM = Subject()
+KINECT_EVENT_STREAM = Subject()
 SCREEN_SIZE = (512, 384)
 SCREEN = pygame.display.set_mode(SCREEN_SIZE, pygame.DOUBLEBUF | pygame.HWSURFACE)
 
@@ -46,17 +47,17 @@ FONT_ROBOTO = pygame.font.Font('fonts/roboto/Roboto-Regular.ttf', 20)
 # HELPER FUNCTIONS
 def POST_EVENT(event_type, **event_data):
     e = pygame.event.Event(event_type, event_data)
-    pygame.event.post(e)
+    EVENT_STREAM.on_next(e)
 
 
 def POST_NEW_BODY_FRAME_EVENT(**event_data):
     e = pygame.event.Event(NEW_BODY_FRAME_EVENT, event_data)
-    pygame.event.post(e)
+    KINECT_EVENT_STREAM.on_next(e)
 
 
 def POST_NEW_BODY_INDEX_FRAME_EVENT(**event_data):
     e = pygame.event.Event(NEW_BODY_INDEX_FRAME_EVENT, event_data)
-    pygame.event.post(e)
+    KINECT_EVENT_STREAM.on_next(e)
 
 
 def draw_player(frame, target_surface, xy=(0, 0)):
