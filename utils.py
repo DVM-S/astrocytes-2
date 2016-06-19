@@ -57,3 +57,21 @@ def POST_NEW_BODY_FRAME_EVENT(**event_data):
 def POST_NEW_BODY_INDEX_FRAME_EVENT(**event_data):
     e = pygame.event.Event(NEW_BODY_INDEX_FRAME_EVENT, event_data)
     pygame.event.post(e)
+
+
+def draw_player(frame, target_surface, xy=(0, 0)):
+    hide = (frame == 255)
+    show = (frame != 255)
+
+    frame[hide] = 0
+    frame[show] = 255
+
+    frame = np.array((frame, frame, frame, frame))
+
+    frame = np.ravel(frame.T)
+    target_surface.lock()
+    address = KINECT.surface_as_array(target_surface.get_buffer())
+    ctypes.memmove(address, frame.ctypes.data, frame.size)
+    del address
+    target_surface.unlock()
+    SCREEN.blit(pygame.transform.scale(target_surface, SCREEN_SIZE), xy)
