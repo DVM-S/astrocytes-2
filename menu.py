@@ -10,23 +10,21 @@ import pygame
 from button import Button
 from text import Text
 
-pygame.init()
 
-MENU_BG = pygame.image.load('menu.png')
-
-
-def load_game_1():
+def load_game(idx):
     if ACTIVE['CURR'] != 'menu':
         return
 
     ACTIVE['PREV'] = ACTIVE['CURR']
-    ACTIVE['CURR'] = 'game_1'
-    print 'GAME 1 LOADED'
+    ACTIVE['CURR'] = 'game_%d' % (idx)
+    print 'GAME %d LOADED' % (idx)
 
 
 class Menu:
     def __init__(self):
-        self.background = pygame.transform.scale(MENU_BG, SCREEN_SIZE)
+        self.bg = pygame.transform.scale(
+            pygame.image.load('menu.png'),
+            SCREEN_SIZE)
 
         self.init_buttons()
 
@@ -41,7 +39,7 @@ class Menu:
                 (143 / 768.0) * height),
             bg=COLOR_GREEN,
             text=Text('Game 1', FONT_ROBOTO),
-            on_left_click=load_game_1
+            on_left_click=lambda: load_game(1)
         )
 
         self.btn_2 = Button(
@@ -51,7 +49,8 @@ class Menu:
                 (143 / 1024.0) * width,
                 (143 / 768.0) * height),
             bg=COLOR_GREEN,
-            text=Text('Game 2', FONT_ROBOTO)
+            text=Text('Game 2', FONT_ROBOTO),
+            on_left_click=lambda: load_game(2)
         )
 
         self.btn_3 = Button(
@@ -70,7 +69,7 @@ class Menu:
                 (420 / 768.0) * height,
                 (143 / 1024.0) * width,
                 (143 / 768.0) * height),
-            bg=MENU_BG,
+            bg=COLOR_GREEN,
             text=Text('Game 4', FONT_ROBOTO)
         )
 
@@ -85,7 +84,7 @@ class Menu:
         )
 
     def render(self):
-        SCREEN.blit(self.background, (0, 0))
+        SCREEN.blit(self.bg, (0, 0))
 
         self.btn_1.render()
         self.btn_2.render()

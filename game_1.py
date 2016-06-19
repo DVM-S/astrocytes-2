@@ -14,14 +14,10 @@ from pykinect2 import PyKinectV2
 import pygame
 import random
 
-pygame.init()
-
-GAME_1_BG = pygame.image.load('game_1.jpg')
-
 
 class Game_1:
     def __init__(self):
-        self.bg = GAME_1_BG
+        self.bg = pygame.image.load('game_1.jpg')
         self.body_frame = None
         self.body_index_frame = None
         self.solved = True

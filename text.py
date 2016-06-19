@@ -1,8 +1,6 @@
 from utils import COLOR_BLACK
 import pygame
 
-pygame.init()
-
 
 class Text:
     def __init__(self, text, font, color=COLOR_BLACK, align='center center'):

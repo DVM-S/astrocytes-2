@@ -60,7 +60,5 @@ class Astrocytes:
 
 
 if __name__ == '__main__':
-    pygame.init()
-
     game = Astrocytes()
     game.run()

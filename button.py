@@ -1,8 +1,6 @@
 from utils import EVENT_STREAM, FONT_ROBOTO, SCREEN
 import pygame
 
-pygame.init()
-
 
 class Button:
     def __init__(self, (x, y, w, h), bg, fg=None, text=None,
