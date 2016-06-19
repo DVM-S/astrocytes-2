@@ -1,9 +1,11 @@
 from utils import (
-    draw_player,
     KINECT,
     KINECT_EVENT_STREAM,
     NEW_BODY_FRAME_EVENT,
     NEW_BODY_INDEX_FRAME_EVENT,
+    PLAYER,
+    PLAYER_SIZE,
+    render_player,
     SCREEN,
     SCREEN_SIZE)
 
@@ -34,12 +36,11 @@ class Game_1:
         SCREEN.blit(pygame.transform.scale(self.bg, SCREEN_SIZE), (0, 0))
 
         if self.body_index_frame is not None:
-            draw_player(
-                self.body_index_frame,
-                pygame.Surface(
-                    (
-                        KINECT.body_index_frame_desc.Width,
-                        KINECT.body_index_frame_desc.Height),
-                    0, 32).convert_alpha())
+            render_player(self.body_index_frame)
+            (width, height) = SCREEN_SIZE
+            (w, h) = PLAYER_SIZE
+            SCREEN.blit(
+                pygame.transform.scale(PLAYER, (int(0.5 * w), int(0.5 * h))),
+                (width - 0.5 * w, height - 0.5 * h))
 
         pygame.display.update()

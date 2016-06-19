@@ -22,6 +22,10 @@ SCREEN_SIZE = (512, 384)
 SCREEN = pygame.display.set_mode(
     SCREEN_SIZE, pygame.DOUBLEBUF |
     pygame.HWSURFACE)
+PLAYER_SIZE = (
+    KINECT.body_index_frame_desc.Width,
+    KINECT.body_index_frame_desc.Height)
+PLAYER = pygame.Surface(PLAYER_SIZE, 0, 32).convert_alpha()
 
 NEW_BODY_FRAME_EVENT = 1 + pygame.USEREVENT
 NEW_BODY_INDEX_FRAME_EVENT = 2 + pygame.USEREVENT
@@ -60,7 +64,7 @@ def POST_NEW_BODY_INDEX_FRAME_EVENT(**event_data):
     KINECT_EVENT_STREAM.on_next(e)
 
 
-def draw_player(frame, target_surface, xy=(0, 0)):
+def render_player(frame):
     hide = (frame == 255)
     show = (frame != 255)
 
@@ -71,9 +75,8 @@ def draw_player(frame, target_surface, xy=(0, 0)):
     (r, g, b, a) = frame
 
     frame = np.ravel(frame.T)
-    target_surface.lock()
-    address = KINECT.surface_as_array(target_surface.get_buffer())
+    PLAYER.lock()
+    address = KINECT.surface_as_array(PLAYER.get_buffer())
     ctypes.memmove(address, frame.ctypes.data, frame.size)
     del address
-    target_surface.unlock()
-    SCREEN.blit(pygame.transform.scale(target_surface, SCREEN_SIZE), xy)
+    PLAYER.unlock()
