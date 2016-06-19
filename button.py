@@ -1,11 +1,11 @@
-from utils import FONT_ROBOTO, EVENT_STREAM
+from utils import EVENT_STREAM, FONT_ROBOTO, SCREEN
 import pygame
 
 pygame.init()
 
 
 class Button:
-    def __init__(self, screen, (x, y, w, h), bg, fg=None, text=None,
+    def __init__(self, (x, y, w, h), bg, fg=None, text=None,
                  on_left_click=None, on_middle_click=None, on_right_click=None):
         self.x = x
         self.y = y
@@ -43,17 +43,17 @@ class Button:
                 if self.right_click_callback:
                     self.right_click_callback()
 
-    def render(self, screen):
+    def render(self):
         if isinstance(self.bg, pygame.Surface):
             surface = pygame.transform.scale(self.bg, (int(self.w), int(self.h)))
             surface_rect = surface.get_rect()
             surface_rect.topleft = (self.x, self.y)
             surface_rect.bottomright = (self.x + self.w, self.y + self.h)
 
-            screen.blit(surface, surface_rect)
+            SCREEN.blit(surface, surface_rect)
 
         elif isinstance(self.bg, tuple) and len(self.bg) == 3:
-            surface_rect = pygame.draw.rect(screen, self.bg, (self.x, self.y, self.w, self.h))
+            surface_rect = pygame.draw.rect(SCREEN, self.bg, (self.x, self.y, self.w, self.h))
 
         if self.text:
-            self.text.render(screen, surface_rect)
+            self.text.render(SCREEN, surface_rect)

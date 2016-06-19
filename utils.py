@@ -4,8 +4,10 @@ from rx.subjects import Subject
 pygame.init()
 
 
-# EVENT STREAM
+# GLOBAL STATE VARIABLES
 EVENT_STREAM = Subject()
+SCREEN_SIZE = (512, 384)
+SCREEN = pygame.display.set_mode(SCREEN_SIZE, pygame.DOUBLEBUF | pygame.HWSURFACE)
 
 
 # COLORS

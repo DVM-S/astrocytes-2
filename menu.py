@@ -1,4 +1,4 @@
-from utils import COLOR_GREEN, FONT_ROBOTO, EVENT_STREAM
+from utils import COLOR_GREEN, EVENT_STREAM, FONT_ROBOTO, SCREEN, SCREEN_SIZE
 import pygame
 
 from button import Button
@@ -8,22 +8,22 @@ pygame.init()
 
 MENU_BG = pygame.image.load('menu.png')
 
+
 def load_game_1():
     print 'GAME 1 LOADED'
 
 
 class Menu:
-    def __init__(self, screen):
-        self.screen = screen
-        self.background = pygame.transform.scale(MENU_BG, self.screen.get_size())
+    def __init__(self):
+        self.background = pygame.transform.scale(MENU_BG, SCREEN_SIZE)
 
         self.init_buttons()
 
     def init_buttons(self):
-        (width, height) = self.screen.get_size()
+        (width, height) = SCREEN_SIZE
 
         self.game_1 = Button(
-            self.screen, (
+            (
                 (345 / 1024.0) * width,
                 (94 / 768.0) * height,
                 (143 / 1024.0) * width,
@@ -34,7 +34,7 @@ class Menu:
         )
 
         self.game_2 = Button(
-            self.screen, (
+            (
                 (345 / 1024.0) * width,
                 (257 / 768.0) * height,
                 (143 / 1024.0) * width,
@@ -44,7 +44,7 @@ class Menu:
         )
 
         self.game_3 = Button(
-            self.screen, (
+            (
                 (345 / 1024.0) * width,
                 (420 / 768.0) * height,
                 (143 / 1024.0) * width,
@@ -54,7 +54,7 @@ class Menu:
         )
 
         self.game_4 = Button(
-            self.screen, (
+            (
                 (184 / 1024.0) * width,
                 (420 / 768.0) * height,
                 (143 / 1024.0) * width,
@@ -64,7 +64,7 @@ class Menu:
         )
 
         self.game_5 = Button(
-            self.screen, (
+            (
                 (22 / 1024.0) * width,
                 (420 / 768.0) * height,
                 (143 / 1024.0) * width,
@@ -74,12 +74,12 @@ class Menu:
         )
 
     def render(self):
-        self.screen.blit(self.background, (0, 0))
+        SCREEN.blit(self.background, (0, 0))
 
-        self.game_1.render(self.screen)
-        self.game_2.render(self.screen)
-        self.game_3.render(self.screen)
-        self.game_4.render(self.screen)
-        self.game_5.render(self.screen)
+        self.game_1.render()
+        self.game_2.render()
+        self.game_3.render()
+        self.game_4.render()
+        self.game_5.render()
 
         pygame.display.update()
