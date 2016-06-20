@@ -60,7 +60,8 @@ class Menu:
                 (143 / 1024.0) * width,
                 (143 / 768.0) * height),
             bg=COLOR_GREEN,
-            text=Text('Game 3', FONT_ROBOTO)
+            text=Text('Game 3', FONT_ROBOTO),
+            on_left_click=lambda: load_game(3)
         )
 
         self.btn_4 = Button(
