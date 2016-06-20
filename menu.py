@@ -91,5 +91,3 @@ class Menu:
         self.btn_3.render()
         self.btn_4.render()
         self.btn_5.render()
-
-        pygame.display.update()

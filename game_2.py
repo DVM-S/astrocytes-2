@@ -125,8 +125,6 @@ class Game_2:
                 pygame.transform.scale(PLAYER, self.player_size),
                 ((W_s - W_p) / 2, H_s - H_p))
 
-        pygame.display.update()
-
 
 class Particle:
     def __init__(self, character, good):

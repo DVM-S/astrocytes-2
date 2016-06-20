@@ -117,5 +117,3 @@ class Game_1:
             SCREEN.blit(
                 pygame.transform.scale(PLAYER, self.player_size),
                 (W_s - W_p - 10, H_s - H_p))
-
-        pygame.display.update()

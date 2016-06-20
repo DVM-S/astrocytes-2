@@ -60,6 +60,8 @@ class Astrocytes:
 
                 self.game_2.render()
 
+            pygame.display.update()
+
     def check_exit(self, e):
         if e.type == pygame.QUIT:
             pygame.quit()
