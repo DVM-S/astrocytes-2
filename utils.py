@@ -18,14 +18,16 @@ KINECT = PyKinectRuntime.PyKinectRuntime(
 
 EVENT_STREAM = Subject()
 KINECT_EVENT_STREAM = Subject()
+
 SCREEN_SIZE = (512, 384)
 SCREEN = pygame.display.set_mode(
     SCREEN_SIZE, pygame.DOUBLEBUF |
     pygame.HWSURFACE)
-PLAYER_SIZE = (
+
+KINECT_FRAME_SIZE = (
     KINECT.body_index_frame_desc.Width,
     KINECT.body_index_frame_desc.Height)
-PLAYER = pygame.Surface(PLAYER_SIZE, 0, 32).convert_alpha()
+PLAYER = pygame.Surface(KINECT_FRAME_SIZE, 0, 32).convert_alpha()
 
 NEW_BODY_FRAME_EVENT = 1 + pygame.USEREVENT
 NEW_BODY_INDEX_FRAME_EVENT = 2 + pygame.USEREVENT

@@ -1,10 +1,10 @@
 from utils import (
     KINECT,
     KINECT_EVENT_STREAM,
+    KINECT_FRAME_SIZE,
     NEW_BODY_FRAME_EVENT,
     NEW_BODY_INDEX_FRAME_EVENT,
     PLAYER,
-    PLAYER_SIZE,
     render_player,
     SCREEN,
     SCREEN_SIZE)
@@ -110,7 +110,7 @@ class Game_1:
 
             render_player(self.body_index_frame)
             (width, height) = SCREEN_SIZE
-            (w, h) = PLAYER_SIZE
+            (w, h) = KINECT_FRAME_SIZE
             SCREEN.blit(
                 pygame.transform.scale(PLAYER, (int(0.5 * w), int(0.5 * h))),
                 (width - 0.5 * w, height - 0.5 * h))
