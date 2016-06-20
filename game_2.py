@@ -1,5 +1,9 @@
 from utils import (
     COLOR_BLUE,
+    COLOR_GREEN,
+    COLOR_RED,
+    COLOR_YELLOW,
+    FONT_DROID,
     KINECT,
     KINECT_EVENT_STREAM,
     KINECT_FRAME_SIZE,
@@ -7,25 +11,37 @@ from utils import (
     NEW_BODY_INDEX_FRAME_EVENT,
     PLAYER,
     render_player,
+    RIGHT_ANSWER,
     SCREEN,
+    WRONG_ANSWER,
     SCREEN_SIZE)
 
 from pykinect2 import PyKinectV2
 import pygame
 import random
 
+from text import Text
+
+INCR = 20
+(W_c, H_c) = FONT_DROID.size(' ')
+
 
 class Game_2:
     def __init__(self):
-        self.all_particles = []
-        self.bg = pygame.image.load('game_2.jpg')
-        self.body_frame = None
-        self.body_index_frame = None
-        self.totalOrange = 0
+        self.bg = pygame.image.load('game_1.jpg')
+        self.probability_of_good_char = 0.3  # Probability of next character being good
+        self.margin_row = 20
+
+        self.chars_on_screen = []
+        self.good_chars_on_screen_count = 0
+        self.frame = 0
 
         (W_s, H_s) = SCREEN_SIZE
         self.target_size = 20
         self.player_size = (W_s / 2, H_s / 2)
+
+        self.body_frame = None
+        self.body_index_frame = None
 
         KINECT_EVENT_STREAM.subscribe(self.event_handler)
 
@@ -64,77 +80,72 @@ class Game_2:
                     int(hand_right.y * H_p / H_kf + H_s - H_p)
                 ), self.target_size)
 
-            # for particle in self.all_particles:
-            #     if particle.hidden:
-            #         continue
-
-            #     (width, height) = SCREEN_SIZE
-            #     if particle.rect.y >= height:
-            #         particle.hidden = True
-            #         if particle.good:
-            #             self.totalOrange -= 1
-
-            #     if (
-            #         particle.rect.colliderect(target_left) or
-            #         particle.rect.colliderect(target_right)
-            #     ):
-            #         if particle.good:
-            #             self.totalOrange -= 1
-
-            #         particle.hidden = True
-
-    def generate_particles(self, number):
-        if pygame.time.get_ticks() % 10 != 0:
-            return
-
-        chars = list('abcdefghijklmnopqrstuvwxyz')
-        vowels = list('aeiou')
-        charactersNormal = [x for x in chars]
-        charactersGood = charactersNormal + (1 * vowels)
-        charactersBad = list(set(charactersNormal) - set(vowels))
-
-        for x in xrange(number):
-            if self.totalOrange == 0:
-                randomCharacter = random.sample(vowels, 1)[0]
-            elif self.totalOrange <= 10:
-                randomCharacter = random.sample(charactersGood, 1)[0]
-            else:
-                randomCharacter = random.sample(charactersBad, 1)[0]
-            good = False
-            if randomCharacter in vowels:
-                good = True
-                self.totalOrange += 1
-            particle = Particle(randomCharacter, good)
-            self.all_particles.append(particle)
+            for char in self.chars_on_screen:
+                if char.collide(target_left) or char.collide(target_right):
+                    if char.is_good:
+                        RIGHT_ANSWER.play()
+                    else:
+                        WRONG_ANSWER.play()
 
     def render(self):
         SCREEN.blit(pygame.transform.scale(self.bg, SCREEN_SIZE), (0, 0))
 
-        if self.body_index_frame is not None:
-            self.generate_particles(2)
-            for particle in self.all_particles:
-                if not particle.hidden:
-                    particle.rect.y += 1
-                    SCREEN.blit(particle.textSurface, particle.rect)
+        bad_chars = list('BCDFGHJKLMNPQRSTVWXYZ')
+        good_chars = list('AEIOU')
+        next_char_at = (self.margin_row + H_c) / INCR
 
-            render_player(self.body_index_frame)
+        self.frame += 1
+        if self.frame % next_char_at == 0:
+            if random.random() <= self.probability_of_good_char:
+                char = Char(random.choice(good_chars), is_good=True)
+            else:
+                char = Char(random.choice(bad_chars), is_good=False)
+            self.chars_on_screen.append(char)
+
+        if self.body_index_frame is not None:
+            for char in self.chars_on_screen:
+                char.render()
+
             self.check_collisions()
+            render_player(self.body_index_frame)
             (W_s, H_s) = SCREEN_SIZE
             (W_p, H_p) = self.player_size
             SCREEN.blit(
                 pygame.transform.scale(PLAYER, self.player_size),
                 ((W_s - W_p) / 2, H_s - H_p))
 
+            self.chars_on_screen = [char for char in self.chars_on_screen if char.fresh]
+
         pygame.display.update()
 
 
-class Particle:
-    def __init__(self, character, good):
-        self.character = character
-        self.font = pygame.font.Font(None, 32)
-        self.good = good
-        self.hidden = False
-        self.textSurface = self.font.render('%s' % (character), 1, (0, 0, 0))
-        self.rect = self.textSurface.get_rect()
-        self.rect.x = random.randint(20, 1000)
-        self.rect.y = -20
+class Char:
+    def __init__(self, char, is_good):
+        self.fresh = True
+        self.is_good = is_good
+        if self.is_good:
+            self.text = Text(char, FONT_DROID, COLOR_GREEN)
+        else:
+            self.text = Text(char, FONT_DROID, COLOR_RED)
+
+        (W_s, H_s) = SCREEN_SIZE
+        margin_edge = W_s / 4
+        self.rect = self.text.text_surface.get_rect()
+        self.rect.x = random.randint(margin_edge, SCREEN_SIZE[0] - W_c - margin_edge)
+        self.rect.y = -H_c
+
+    def collide(self, rect):
+        did_collide = self.rect.colliderect(rect)
+        if did_collide:
+            self.fresh = False
+        return did_collide
+
+    def move(self):
+        self.rect.y += INCR
+        (W_s, H_s) = SCREEN_SIZE
+        if self.rect.y >= H_s:
+            self.fresh = False
+
+    def render(self):
+        self.move()
+        self.text.render(SCREEN, self.rect)
