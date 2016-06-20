@@ -24,6 +24,9 @@ class Game_1:
         self.time_angles = None
         self.threshold = 5  # in degrees
 
+        (W_s, H_s) = SCREEN_SIZE
+        self.player_size = (W_s / 3, H_s / 3)
+
         KINECT_EVENT_STREAM.subscribe(self.event_handler)
 
     def event_handler(self, e):
@@ -109,10 +112,10 @@ class Game_1:
                     self.solved = True
 
             render_player(self.body_index_frame)
-            (width, height) = SCREEN_SIZE
-            (w, h) = KINECT_FRAME_SIZE
+            (W_s, H_s) = SCREEN_SIZE
+            (W_p, H_p) = self.player_size
             SCREEN.blit(
-                pygame.transform.scale(PLAYER, (int(0.5 * w), int(0.5 * h))),
-                (width - 0.5 * w, height - 0.5 * h))
+                pygame.transform.scale(PLAYER, self.player_size),
+                (W_s - W_p - 10, H_s - H_p))
 
         pygame.display.update()
