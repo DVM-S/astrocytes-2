@@ -1,13 +1,14 @@
-from utils import (
+from utils import (  # KINECT
     KINECT,
     KINECT_EVENT_STREAM,
     KINECT_FRAME_SIZE,
     NEW_BODY_FRAME_EVENT,
-    NEW_BODY_INDEX_FRAME_EVENT,
-    PLAYER,
+    NEW_BODY_INDEX_FRAME_EVENT)
+from utils import (  # PYGAME
     render_player,
     SCREEN,
-    SCREEN_SIZE)
+    SCREEN_SIZE,
+    Size)
 
 from math import atan2, degrees, pi
 from pykinect2 import PyKinectV2
@@ -24,8 +25,7 @@ class Game_1:
         self.time_angles = None
         self.threshold = 5  # in degrees
 
-        (W_s, H_s) = SCREEN_SIZE
-        self.player_size = (W_s / 3, H_s / 3)
+        self.player_size = Size(SCREEN_SIZE.W / 3, SCREEN_SIZE.H / 3)
 
         KINECT_EVENT_STREAM.subscribe(self.event_handler)
 
@@ -89,7 +89,7 @@ class Game_1:
         return (hour, minute)
 
     def render(self):
-        SCREEN.blit(pygame.transform.scale(self.bg, SCREEN_SIZE), (0, 0))
+        SCREEN.blit(pygame.transform.scale(self.bg, (SCREEN_SIZE.W, SCREEN_SIZE.H)), (0, 0))
 
         if self.solved is True:
             self.solved = False
@@ -111,11 +111,7 @@ class Game_1:
                 )):
                     self.solved = True
 
-            render_player(self.body_index_frame)
-            (W_s, H_s) = SCREEN_SIZE
-            (W_p, H_p) = self.player_size
-            SCREEN.blit(
-                pygame.transform.scale(PLAYER, self.player_size),
-                (W_s - W_p - 10, H_s - H_p))
-
-        pygame.display.update()
+            render_player(
+                self.body_index_frame,
+                self.player_size,
+                'bottom right')

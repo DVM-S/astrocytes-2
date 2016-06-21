@@ -17,7 +17,8 @@ from menu import Menu
 
 class Astrocytes:
     def __init__(self):
-        self.background = pygame.Surface(SCREEN_SIZE)
+        pygame.display.set_caption('Astrocytes')
+        self.background = pygame.Surface((SCREEN_SIZE.W, SCREEN_SIZE.H))
 
         self.menu = Menu()
         self.game_1 = Game_1()
@@ -25,7 +26,6 @@ class Astrocytes:
         self.game_3 = Game_3()
 
         EVENT_STREAM.subscribe(self.event_handler)
-        pygame.display.set_caption('Astrocytes')
 
     def event_handler(self, e):
         self.check_exit(e)
@@ -71,6 +71,7 @@ class Astrocytes:
                     POST_NEW_BODY_INDEX_FRAME_EVENT(
                         body_index_frame=KINECT.get_last_body_index_frame())
                 self.game_3.render()
+            pygame.display.update()
 
     def check_exit(self, e):
         if e.type == pygame.QUIT:
