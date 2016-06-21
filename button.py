@@ -58,4 +58,4 @@ class Button:
             surface_rect = pygame.draw.rect(SCREEN, self.bg, (self.x, self.y, self.w, self.h))
 
         if self.text:
-            self.text.render(SCREEN, surface_rect)
+            self.text.render(surface_rect)
