@@ -7,9 +7,9 @@ class Text:
         self.text_surface = font.render(text, True, color)
         self.align = align
 
-    def render(self, screen, button_rect):
-        (x, y) = (button_rect.x, button_rect.y)
-        (w, h) = (button_rect.w, button_rect.h)
+    def render(self, screen, rect):
+        (x, y) = (rect.x, rect.y)
+        (w, h) = (rect.w, rect.h)
         text_rect = self.text_surface.get_rect()
 
         if self.align == 'top left':
