@@ -5,7 +5,6 @@ from utils import (  # KINECT
     NEW_BODY_FRAME_EVENT,
     NEW_BODY_INDEX_FRAME_EVENT)
 from utils import (  # PYGAME
-    PLAYER,
     render_player,
     SCREEN,
     SCREEN_SIZE,
@@ -112,7 +111,8 @@ class Game_1:
                 )):
                     self.solved = True
 
-            render_player(self.body_index_frame)
-            SCREEN.blit(
-                pygame.transform.scale(PLAYER, (self.player_size.W, self.player_size.H)),
-                (SCREEN_SIZE.W - self.player_size.W - 10, SCREEN_SIZE.H - self.player_size.H))
+            render_player(
+                self.body_index_frame,
+                self.player_size, (
+                    SCREEN_SIZE.W - self.player_size.W - 10,
+                    SCREEN_SIZE.H - self.player_size.H))

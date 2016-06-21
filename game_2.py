@@ -13,7 +13,6 @@ from utils import (  # KINECT
 from utils import (  # PYGAME
     CORRECT_ANSWER,
     INCORRECT_ANSWER,
-    PLAYER,
     render_player,
     SCREEN,
     SCREEN_SIZE,
@@ -103,10 +102,11 @@ class Game_2:
                 char.render()
 
             self.check_collisions()
-            render_player(self.body_index_frame)
-            SCREEN.blit(
-                pygame.transform.scale(PLAYER, (self.player_size.W, self.player_size.H)),
-                ((SCREEN_SIZE.W - self.player_size.W) / 2, SCREEN_SIZE.H - self.player_size.H))
+            render_player(
+                self.body_index_frame,
+                self.player_size, (
+                    (SCREEN_SIZE.W - self.player_size.W) / 2,
+                    SCREEN_SIZE.H - self.player_size.H))
 
             self.chars_on_screen = [
                 char for char in self.chars_on_screen if char.fresh]

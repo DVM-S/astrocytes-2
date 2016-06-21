@@ -83,7 +83,7 @@ def POST_NEW_BODY_INDEX_FRAME_EVENT(**event_data):
     KINECT_EVENT_STREAM.on_next(e)
 
 
-def render_player(frame):
+def render_player(frame, size, (x, y)):
     hide = (frame == 255)
     show = (frame != 255)
 
@@ -93,10 +93,12 @@ def render_player(frame):
     frame = np.array((frame, frame, frame, frame))
     (r, g, b, a) = frame
     r[r == 255] = 100
-
     frame = np.ravel(frame.T)
+
     PLAYER.lock()
     address = KINECT.surface_as_array(PLAYER.get_buffer())
     ctypes.memmove(address, frame.ctypes.data, frame.size)
     del address
     PLAYER.unlock()
+
+    SCREEN.blit(pygame.transform.scale(PLAYER, (size.W, size.H)), (x, y))
