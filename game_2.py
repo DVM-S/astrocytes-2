@@ -26,6 +26,8 @@ from text import Text
 
 INCR = 20
 (W_c, H_c) = FONT_DROID.size(' ')
+(W_s, H_s) = SCREEN_SIZE
+(W_kf, H_kf) = KINECT_FRAME_SIZE
 
 
 class Game_2:
@@ -38,7 +40,6 @@ class Game_2:
         self.good_chars_on_screen_count = 0
         self.frame = 0
 
-        (W_s, H_s) = SCREEN_SIZE
         self.target_size = 20
         self.player_size = (W_s / 2, H_s / 2)
 
@@ -64,23 +65,19 @@ class Game_2:
             hand_right = jointPoints[PyKinectV2.JointType_HandRight]
 
             (W_p, H_p) = self.player_size
-            (W_kf, H_kf) = KINECT_FRAME_SIZE
-            (W_s, H_s) = SCREEN_SIZE
 
             target_left = pygame.draw.circle(
                 SCREEN,
-                COLOR_BLUE,
-                (
-                    int(hand_left.x * W_p / W_kf + (W_s - W_p) / 2),
-                    int(hand_left.y * H_p / H_kf + H_s - H_p)
-                ), self.target_size)
+                COLOR_BLUE, (
+                    hand_left.x * W_p / W_kf + (W_s - W_p) / 2,
+                    hand_left.y * H_p / H_kf + H_s - H_p),
+                self.target_size)
             target_right = pygame.draw.circle(
                 SCREEN,
-                COLOR_BLUE,
-                (
-                    int(hand_right.x * W_p / W_kf + (W_s - W_p) / 2),
-                    int(hand_right.y * H_p / H_kf + H_s - H_p)
-                ), self.target_size)
+                COLOR_BLUE, (
+                    hand_right.x * W_p / W_kf + (W_s - W_p) / 2,
+                    hand_right.y * H_p / H_kf + H_s - H_p),
+                self.target_size)
 
             for char in self.chars_on_screen:
                 if char.collide(target_left) or char.collide(target_right):
@@ -110,13 +107,13 @@ class Game_2:
 
             self.check_collisions()
             render_player(self.body_index_frame)
-            (W_s, H_s) = SCREEN_SIZE
             (W_p, H_p) = self.player_size
             SCREEN.blit(
                 pygame.transform.scale(PLAYER, self.player_size),
                 ((W_s - W_p) / 2, H_s - H_p))
 
-            self.chars_on_screen = [char for char in self.chars_on_screen if char.fresh]
+            self.chars_on_screen = [
+                char for char in self.chars_on_screen if char.fresh]
 
         pygame.display.update()
 
@@ -130,10 +127,11 @@ class Char:
         else:
             self.text = Text(char, FONT_DROID, COLOR_RED)
 
-        (W_s, H_s) = SCREEN_SIZE
         margin_edge = W_s / 4
         self.rect = self.text.surface.get_rect()
-        self.rect.x = random.randint(margin_edge, SCREEN_SIZE[0] - W_c - margin_edge)
+        self.rect.x = random.randint(
+            margin_edge,
+            SCREEN_SIZE[0] - W_c - margin_edge)
         self.rect.y = -H_c
 
     def collide(self, rect):
@@ -144,7 +142,6 @@ class Char:
 
     def move(self):
         self.rect.y += INCR
-        (W_s, H_s) = SCREEN_SIZE
         if self.rect.y >= H_s:
             self.fresh = False
 
