@@ -1,9 +1,10 @@
-from utils import (
+from utils import (  # KINECT
     KINECT,
     KINECT_EVENT_STREAM,
     KINECT_FRAME_SIZE,
     NEW_BODY_FRAME_EVENT,
-    NEW_BODY_INDEX_FRAME_EVENT,
+    NEW_BODY_INDEX_FRAME_EVENT)
+from utils import (  # PYGAME
     PLAYER,
     render_player,
     SCREEN,

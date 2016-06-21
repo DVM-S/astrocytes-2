@@ -1,4 +1,7 @@
-from utils import COLOR_BLACK
+from utils import (
+    COLOR_BLACK,
+    SCREEN)
+
 import pygame
 
 
@@ -7,7 +10,7 @@ class Text:
         self.text_surface = font.render(text, True, color)
         self.align = align
 
-    def render(self, screen, rect):
+    def render(self, rect):
         (x, y) = (rect.x, rect.y)
         (w, h) = (rect.w, rect.h)
         text_rect = self.text_surface.get_rect()
@@ -33,4 +36,4 @@ class Text:
         if self.align == 'bottom right':
             text_rect.bottomright = (x + w, y + h)
 
-        screen.blit(self.text_surface, text_rect)
+        SCREEN.blit(self.text_surface, text_rect)

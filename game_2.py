@@ -1,14 +1,16 @@
-from utils import (
+from utils import (  # COLORS & FONTS
     COLOR_BLUE,
     COLOR_GREEN,
     COLOR_RED,
     COLOR_YELLOW,
-    FONT_DROID,
+    FONT_DROID)
+from utils import (  # KINECT
     KINECT,
     KINECT_EVENT_STREAM,
     KINECT_FRAME_SIZE,
     NEW_BODY_FRAME_EVENT,
-    NEW_BODY_INDEX_FRAME_EVENT,
+    NEW_BODY_INDEX_FRAME_EVENT)
+from utils import (  # PYGAME
     PLAYER,
     render_player,
     RIGHT_ANSWER,

@@ -1,4 +1,8 @@
-from utils import EVENT_STREAM, FONT_ROBOTO, SCREEN
+from utils import (
+    EVENT_STREAM,
+    FONT_ROBOTO,
+    SCREEN)
+
 import pygame
 
 
