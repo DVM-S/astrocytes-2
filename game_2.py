@@ -30,7 +30,7 @@ CHAR_SIZE = Size(FONT_DROID.size(' '))
 
 class Game_2:
     def __init__(self):
-        self.bg = pygame.image.load('game_1.jpg')
+        self.bg = pygame.image.load('game_2.jpg')
         self.probability_of_good_char = 0.3  # Probability of next character being good
         self.margin_row = 20
 
@@ -65,14 +65,14 @@ class Game_2:
             target_left = pygame.draw.circle(
                 SCREEN,
                 COLOR_BLUE, (
-                    hand_left.x * self.player_size.W / KINECT_FRAME_SIZE.W + (SCREEN_SIZE.W - self.player_size.W) / 2,
-                    hand_left.y * self.player_size.H / KINECT_FRAME_SIZE.H + SCREEN_SIZE.H - self.player_size.H),
+                    int(hand_left.x * self.player_size.W / KINECT_FRAME_SIZE.W + (SCREEN_SIZE.W - self.player_size.W) / 2),
+                    int(hand_left.y * self.player_size.H / KINECT_FRAME_SIZE.H + SCREEN_SIZE.H - self.player_size.H)),
                 self.target_size)
             target_right = pygame.draw.circle(
                 SCREEN,
                 COLOR_BLUE, (
-                    hand_right.x * self.player_size.W / KINECT_FRAME_SIZE.W + (SCREEN_SIZE.W - self.player_size.W) / 2,
-                    hand_right.y * self.player_size.H / KINECT_FRAME_SIZE.H + SCREEN_SIZE.H - self.player_size.H),
+                    int(hand_right.x * self.player_size.W / KINECT_FRAME_SIZE.W + (SCREEN_SIZE.W - self.player_size.W) / 2),
+                    int(hand_right.y * self.player_size.H / KINECT_FRAME_SIZE.H + SCREEN_SIZE.H - self.player_size.H)),
                 self.target_size)
 
             for char in self.chars_on_screen:
