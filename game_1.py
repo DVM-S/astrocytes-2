@@ -113,6 +113,5 @@ class Game_1:
 
             render_player(
                 self.body_index_frame,
-                self.player_size, (
-                    SCREEN_SIZE.W - self.player_size.W - 10,
-                    SCREEN_SIZE.H - self.player_size.H))
+                self.player_size,
+                'bottom right')

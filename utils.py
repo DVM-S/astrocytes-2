@@ -83,7 +83,7 @@ def POST_NEW_BODY_INDEX_FRAME_EVENT(**event_data):
     KINECT_EVENT_STREAM.on_next(e)
 
 
-def render_player(frame, size, (x, y)):
+def render_player(frame, size, position):
     hide = (frame == 255)
     show = (frame != 255)
 
@@ -101,4 +101,31 @@ def render_player(frame, size, (x, y)):
     del address
     PLAYER.unlock()
 
-    SCREEN.blit(pygame.transform.scale(PLAYER, (size.W, size.H)), (x, y))
+    (w, h) = (SCREEN_SIZE.W, SCREEN_SIZE.H)
+    pos_rect = pygame.Rect((0, 0), (size.W, size.H))
+    if isinstance(position, tuple):
+        pos_rect.topleft = position
+    elif isinstance(position, str):
+        if position == 'top left':
+            pos_rect.topleft = (0, 0)
+        if position == 'top center':
+            pos_rect.midtop = (w / 2, 0)
+        if position == 'top right':
+            pos_rect.topright = (w, 0)
+
+        if position == 'center left':
+            pos_rect.midleft = (0, h / 2)
+        if position == 'center center':
+            pos_rect.center = (w / 2, h / 2)
+        if position == 'center right':
+            pos_rect.midleft = (w, h / 2)
+
+        if position == 'bottom left':
+            pos_rect.bottomleft = (0, h)
+        if position == 'bottom center':
+            pos_rect.midbottom = (w / 2, h)
+            print pos_rect, pos_rect.midbottom
+        if position == 'bottom right':
+            pos_rect.bottomright = (w, h)
+
+    SCREEN.blit(pygame.transform.scale(PLAYER, (size.W, size.H)), pos_rect)

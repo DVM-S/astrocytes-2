@@ -106,9 +106,8 @@ class Game_2:
             self.check_collisions()
             render_player(
                 self.body_index_frame,
-                self.player_size, (
-                    (SCREEN_SIZE.W - self.player_size.W) / 2,
-                    SCREEN_SIZE.H - self.player_size.H))
+                self.player_size,
+                'bottom center')
 
             self.chars_on_screen = [
                 char for char in self.chars_on_screen if char.fresh]
