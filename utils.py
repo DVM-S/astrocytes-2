@@ -52,8 +52,8 @@ FONT_DROID = pygame.font.Font('fonts/DroidSansMono.ttf', 40)
 
 
 # SOUNDS
-RIGHT_ANSWER = pygame.mixer.Sound('right_answer.wav')
-WRONG_ANSWER = pygame.mixer.Sound('wrong_answer.wav')
+CORRECT_ANSWER = pygame.mixer.Sound('correct_answer.wav')
+INCORRECT_ANSWER = pygame.mixer.Sound('incorrect_answer.wav')
 
 
 # HELPER FUNCTIONS

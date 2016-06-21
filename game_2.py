@@ -13,9 +13,9 @@ from utils import (  # KINECT
 from utils import (  # PYGAME
     PLAYER,
     render_player,
-    RIGHT_ANSWER,
+    CORRECT_ANSWER,
     SCREEN,
-    WRONG_ANSWER,
+    INCORRECT_ANSWER,
     SCREEN_SIZE)
 
 from pykinect2 import PyKinectV2
@@ -82,9 +82,9 @@ class Game_2:
             for char in self.chars_on_screen:
                 if char.collide(target_left) or char.collide(target_right):
                     if char.is_good:
-                        RIGHT_ANSWER.play()
+                        CORRECT_ANSWER.play()
                     else:
-                        WRONG_ANSWER.play()
+                        INCORRECT_ANSWER.play()
 
     def render(self):
         SCREEN.blit(pygame.transform.scale(self.bg, SCREEN_SIZE), (0, 0))
