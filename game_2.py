@@ -39,7 +39,9 @@ class Game_2:
         self.frame = 0
 
         self.target_size = 20
-        self.player_size = Size(SCREEN_SIZE.W / 2, SCREEN_SIZE.H / 2)
+        self.player_size = Size(
+            int(KINECT_FRAME_SIZE.W / 1.5),
+            int(KINECT_FRAME_SIZE.H / 1.5))
 
         self.body_frame = None
         self.body_index_frame = None
