@@ -7,13 +7,13 @@ import pygame
 
 class Text:
     def __init__(self, text, font, color=COLOR_BLACK, align='center center'):
-        self.text_surface = font.render(text, True, color)
+        self.surface = font.render(text, True, color)
         self.align = align
 
     def render(self, rect):
         (x, y) = (rect.x, rect.y)
         (w, h) = (rect.w, rect.h)
-        text_rect = self.text_surface.get_rect()
+        text_rect = self.surface.get_rect()
 
         if self.align == 'top left':
             text_rect.topleft = (x, y)
@@ -36,4 +36,4 @@ class Text:
         if self.align == 'bottom right':
             text_rect.bottomright = (x + w, y + h)
 
-        SCREEN.blit(self.text_surface, text_rect)
+        SCREEN.blit(self.surface, text_rect)

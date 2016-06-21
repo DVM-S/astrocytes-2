@@ -132,7 +132,7 @@ class Char:
 
         (W_s, H_s) = SCREEN_SIZE
         margin_edge = W_s / 4
-        self.rect = self.text.text_surface.get_rect()
+        self.rect = self.text.surface.get_rect()
         self.rect.x = random.randint(margin_edge, SCREEN_SIZE[0] - W_c - margin_edge)
         self.rect.y = -H_c
 
