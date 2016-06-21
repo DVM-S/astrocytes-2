@@ -11,12 +11,13 @@ from utils import (  # KINECT
     NEW_BODY_FRAME_EVENT,
     NEW_BODY_INDEX_FRAME_EVENT)
 from utils import (  # PYGAME
+    CORRECT_ANSWER,
+    INCORRECT_ANSWER,
     PLAYER,
     render_player,
-    CORRECT_ANSWER,
     SCREEN,
-    INCORRECT_ANSWER,
-    SCREEN_SIZE)
+    SCREEN_SIZE,
+    Size)
 
 from pykinect2 import PyKinectV2
 import pygame
@@ -25,9 +26,7 @@ import random
 from text import Text
 
 INCR = 20
-(W_c, H_c) = FONT_DROID.size(' ')
-(W_s, H_s) = SCREEN_SIZE
-(W_kf, H_kf) = KINECT_FRAME_SIZE
+CHAR_SIZE = Size(FONT_DROID.size(' '))
 
 
 class Game_2:
@@ -41,7 +40,7 @@ class Game_2:
         self.frame = 0
 
         self.target_size = 20
-        self.player_size = (W_s / 2, H_s / 2)
+        self.player_size = Size(SCREEN_SIZE.W / 2, SCREEN_SIZE.H / 2)
 
         self.body_frame = None
         self.body_index_frame = None
@@ -64,19 +63,17 @@ class Game_2:
             hand_left = jointPoints[PyKinectV2.JointType_HandLeft]
             hand_right = jointPoints[PyKinectV2.JointType_HandRight]
 
-            (W_p, H_p) = self.player_size
-
             target_left = pygame.draw.circle(
                 SCREEN,
                 COLOR_BLUE, (
-                    hand_left.x * W_p / W_kf + (W_s - W_p) / 2,
-                    hand_left.y * H_p / H_kf + H_s - H_p),
+                    hand_left.x * self.player_size.W / KINECT_FRAME_SIZE.W + (SCREEN_SIZE.W - self.player_size.W) / 2,
+                    hand_left.y * self.player_size.H / KINECT_FRAME_SIZE.H + SCREEN_SIZE.H - self.player_size.H),
                 self.target_size)
             target_right = pygame.draw.circle(
                 SCREEN,
                 COLOR_BLUE, (
-                    hand_right.x * W_p / W_kf + (W_s - W_p) / 2,
-                    hand_right.y * H_p / H_kf + H_s - H_p),
+                    hand_right.x * self.player_size.W / KINECT_FRAME_SIZE.W + (SCREEN_SIZE.W - self.player_size.W) / 2,
+                    hand_right.y * self.player_size.H / KINECT_FRAME_SIZE.H + SCREEN_SIZE.H - self.player_size.H),
                 self.target_size)
 
             for char in self.chars_on_screen:
@@ -87,11 +84,11 @@ class Game_2:
                         INCORRECT_ANSWER.play()
 
     def render(self):
-        SCREEN.blit(pygame.transform.scale(self.bg, SCREEN_SIZE), (0, 0))
+        SCREEN.blit(pygame.transform.scale(self.bg, (SCREEN_SIZE.W, SCREEN_SIZE.H)), (0, 0))
 
         bad_chars = list('BCDFGHJKLMNPQRSTVWXYZ')
         good_chars = list('AEIOU')
-        next_char_at = (self.margin_row + H_c) / INCR
+        next_char_at = (self.margin_row + CHAR_SIZE.H) / INCR
 
         self.frame += 1
         if self.frame % next_char_at == 0:
@@ -107,10 +104,9 @@ class Game_2:
 
             self.check_collisions()
             render_player(self.body_index_frame)
-            (W_p, H_p) = self.player_size
             SCREEN.blit(
-                pygame.transform.scale(PLAYER, self.player_size),
-                ((W_s - W_p) / 2, H_s - H_p))
+                pygame.transform.scale(PLAYER, (self.player_size.W, self.player_size.H)),
+                ((SCREEN_SIZE.W - self.player_size.W) / 2, SCREEN_SIZE.H - self.player_size.H))
 
             self.chars_on_screen = [
                 char for char in self.chars_on_screen if char.fresh]
@@ -127,12 +123,10 @@ class Char:
         else:
             self.text = Text(char, FONT_DROID, COLOR_RED)
 
-        margin_edge = W_s / 4
+        margin_edge = SCREEN_SIZE.W / 4
         self.rect = self.text.surface.get_rect()
-        self.rect.x = random.randint(
-            margin_edge,
-            SCREEN_SIZE[0] - W_c - margin_edge)
-        self.rect.y = -H_c
+        self.rect.x = random.randint(margin_edge, SCREEN_SIZE.W - CHAR_SIZE.W - margin_edge)
+        self.rect.y = -CHAR_SIZE.H
 
     def collide(self, rect):
         did_collide = self.rect.colliderect(rect)
@@ -142,9 +136,9 @@ class Char:
 
     def move(self):
         self.rect.y += INCR
-        if self.rect.y >= H_s:
+        if self.rect.y >= SCREEN_SIZE.H:
             self.fresh = False
 
     def render(self):
         self.move()
-        self.text.render(SCREEN, self.rect)
+        self.text.render(self.rect)

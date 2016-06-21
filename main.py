@@ -17,7 +17,7 @@ from menu import Menu
 class Astrocytes:
     def __init__(self):
         pygame.display.set_caption('Astrocytes')
-        self.background = pygame.Surface(SCREEN_SIZE)
+        self.background = pygame.Surface((SCREEN_SIZE.W, SCREEN_SIZE.H))
 
         self.menu = Menu()
         self.game_1 = Game_1()
