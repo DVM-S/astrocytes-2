@@ -16,6 +16,7 @@ from menu import Menu
 
 class Astrocytes:
     def __init__(self):
+        pygame.display.set_caption('Astrocytes')
         self.background = pygame.Surface(SCREEN_SIZE)
 
         self.menu = Menu()
@@ -23,7 +24,6 @@ class Astrocytes:
         self.game_2 = Game_2()
 
         EVENT_STREAM.subscribe(self.event_handler)
-        pygame.display.set_caption('Astrocytes')
 
     def event_handler(self, e):
         self.check_exit(e)

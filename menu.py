@@ -31,8 +31,7 @@ class Menu:
     def init_buttons(self):
         (width, height) = SCREEN_SIZE
 
-        self.btn_1 = Button(
-            (
+        self.btn_1 = Button((
                 (345 / 1024.0) * width,
                 (94 / 768.0) * height,
                 (143 / 1024.0) * width,
@@ -42,8 +41,7 @@ class Menu:
             on_left_click=lambda: load_game(1)
         )
 
-        self.btn_2 = Button(
-            (
+        self.btn_2 = Button((
                 (345 / 1024.0) * width,
                 (257 / 768.0) * height,
                 (143 / 1024.0) * width,
@@ -53,8 +51,7 @@ class Menu:
             on_left_click=lambda: load_game(2)
         )
 
-        self.btn_3 = Button(
-            (
+        self.btn_3 = Button((
                 (345 / 1024.0) * width,
                 (420 / 768.0) * height,
                 (143 / 1024.0) * width,
@@ -63,8 +60,7 @@ class Menu:
             text=Text('Game 3', FONT_ROBOTO)
         )
 
-        self.btn_4 = Button(
-            (
+        self.btn_4 = Button((
                 (184 / 1024.0) * width,
                 (420 / 768.0) * height,
                 (143 / 1024.0) * width,
@@ -73,8 +69,7 @@ class Menu:
             text=Text('Game 4', FONT_ROBOTO)
         )
 
-        self.btn_5 = Button(
-            (
+        self.btn_5 = Button((
                 (22 / 1024.0) * width,
                 (420 / 768.0) * height,
                 (143 / 1024.0) * width,
