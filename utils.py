@@ -60,6 +60,7 @@ COLOR_WHITE = (255, 255, 255)
 # FONTS
 FONT_ROBOTO = pygame.font.Font('fonts/roboto/Roboto-Regular.ttf', 20)
 FONT_DROID = pygame.font.Font('fonts/DroidSansMono.ttf', 40)
+FONT_DROID.set_bold(True)
 
 
 # SOUNDS
