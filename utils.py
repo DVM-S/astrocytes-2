@@ -45,7 +45,7 @@ NEW_BODY_INDEX_FRAME_EVENT = 2 + pygame.USEREVENT
 
 
 # GLOBAL VARIABLES
-ACTIVE = {'CURR': 'menu', 'PREV': None}
+ACTIVE = []
 
 
 # COLORS

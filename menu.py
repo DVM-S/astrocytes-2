@@ -12,11 +12,7 @@ from text import Text
 
 
 def load_game(idx):
-    if ACTIVE['CURR'] != 'menu':
-        return
-
-    ACTIVE['PREV'] = ACTIVE['CURR']
-    ACTIVE['CURR'] = 'game_%d' % (idx)
+    ACTIVE.append('game_%d' % (idx))
     print 'GAME %d LOADED' % (idx)
 
 
