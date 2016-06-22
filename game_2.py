@@ -26,6 +26,7 @@ from text import Text
 
 INCR = 20
 CHAR_SIZE = Size(FONT_DROID.size(' '))
+LAST_X = 0
 
 
 class Game_2:
@@ -117,6 +118,8 @@ class Game_2:
 
 class Char:
     def __init__(self, char, is_good):
+        global LAST_X
+
         self.fresh = True
         self.is_good = is_good
         if self.is_good:
@@ -127,6 +130,9 @@ class Char:
         margin_edge = SCREEN_SIZE.W / 4
         self.rect = self.text.surface.get_rect()
         self.rect.x = random.randint(margin_edge, SCREEN_SIZE.W - CHAR_SIZE.W - margin_edge)
+        while abs(self.rect.x - LAST_X) < 50:
+            self.rect.x = random.randint(margin_edge, SCREEN_SIZE.W - CHAR_SIZE.W - margin_edge)
+        LAST_X = self.rect.x
         self.rect.y = -CHAR_SIZE.H
 
     def collide(self, rect):
