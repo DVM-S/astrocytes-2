@@ -26,8 +26,6 @@ class Menu:
 
     def init_buttons(self):
         self.btn_1 = Button((
-                (345 / 1024.0) * SCREEN_SIZE.W,
-                (94 / 768.0) * SCREEN_SIZE.H,
                 (143 / 1024.0) * SCREEN_SIZE.W,
                 (143 / 768.0) * SCREEN_SIZE.H),
             bg=COLOR_GREEN,
@@ -36,8 +34,6 @@ class Menu:
         )
 
         self.btn_2 = Button((
-                (345 / 1024.0) * SCREEN_SIZE.W,
-                (257 / 768.0) * SCREEN_SIZE.H,
                 (143 / 1024.0) * SCREEN_SIZE.W,
                 (143 / 768.0) * SCREEN_SIZE.H),
             bg=COLOR_GREEN,
@@ -46,8 +42,6 @@ class Menu:
         )
 
         self.btn_3 = Button((
-                (345 / 1024.0) * SCREEN_SIZE.W,
-                (420 / 768.0) * SCREEN_SIZE.H,
                 (143 / 1024.0) * SCREEN_SIZE.W,
                 (143 / 768.0) * SCREEN_SIZE.H),
             bg=COLOR_GREEN,
@@ -56,8 +50,6 @@ class Menu:
         )
 
         self.btn_4 = Button((
-                (184 / 1024.0) * SCREEN_SIZE.W,
-                (420 / 768.0) * SCREEN_SIZE.H,
                 (143 / 1024.0) * SCREEN_SIZE.W,
                 (143 / 768.0) * SCREEN_SIZE.H),
             bg=COLOR_GREEN,
@@ -65,8 +57,6 @@ class Menu:
         )
 
         self.btn_5 = Button((
-                (22 / 1024.0) * SCREEN_SIZE.W,
-                (420 / 768.0) * SCREEN_SIZE.H,
                 (143 / 1024.0) * SCREEN_SIZE.W,
                 (143 / 768.0) * SCREEN_SIZE.H),
             bg=COLOR_GREEN,
@@ -76,8 +66,18 @@ class Menu:
     def render(self):
         SCREEN.blit(self.bg, (0, 0))
 
-        self.btn_1.render()
-        self.btn_2.render()
-        self.btn_3.render()
-        self.btn_4.render()
-        self.btn_5.render()
+        self.btn_1.render((
+            (345 / 1024.0) * SCREEN_SIZE.W,
+            (94 / 768.0) * SCREEN_SIZE.H))
+        self.btn_2.render((
+            (345 / 1024.0) * SCREEN_SIZE.W,
+            (257 / 768.0) * SCREEN_SIZE.H))
+        self.btn_3.render((
+            (345 / 1024.0) * SCREEN_SIZE.W,
+            (420 / 768.0) * SCREEN_SIZE.H))
+        self.btn_4.render((
+            (184 / 1024.0) * SCREEN_SIZE.W,
+            (420 / 768.0) * SCREEN_SIZE.H))
+        self.btn_5.render((
+            (22 / 1024.0) * SCREEN_SIZE.W,
+            (420 / 768.0) * SCREEN_SIZE.H))

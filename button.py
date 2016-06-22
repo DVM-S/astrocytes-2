@@ -7,10 +7,10 @@ import pygame
 
 
 class Button:
-    def __init__(self, (x, y, w, h), bg, fg=None, text=None,
+    def __init__(self, (w, h), bg, fg=None, text=None,
                  on_left_click=None, on_middle_click=None, on_right_click=None):
-        self.x = x
-        self.y = y
+        self.x = 0
+        self.y = 0
         self.w = w
         self.h = h
 
@@ -45,7 +45,9 @@ class Button:
                 if self.right_click_callback:
                     self.right_click_callback()
 
-    def render(self):
+    def render(self, pos):
+        (self.x, self.y) = pos
+
         if isinstance(self.bg, pygame.Surface):
             surface = pygame.transform.scale(self.bg, (int(self.w), int(self.h)))
             surface_rect = surface.get_rect()

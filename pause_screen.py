@@ -21,7 +21,7 @@ class PauseScreen:
 
     def init_buttons(self):
         self.btn_back = Button(
-            (0, 0, 100, 100),
+            (100, 100),
             bg=(0, 0, 0),
             fg=(100, 100, 100),
             text=Text('Back', FONT_ROBOTO, COLOR_WHITE))
@@ -39,7 +39,7 @@ class PauseScreen:
             SCREEN.blit(tint, (0, 0))
             self.hidden = False
 
-        self.btn_back.render()
+        self.btn_back.render((10, 10))
         SCREEN.fill(
             (100, 100, 100),
             (SCREEN_SIZE.W - self.width, 0, self.width, SCREEN_SIZE.H))
