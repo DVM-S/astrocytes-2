@@ -124,7 +124,6 @@ def render_player(frame, size, position):
             pos_rect.bottomleft = (0, h)
         if position == 'bottom center':
             pos_rect.midbottom = (w / 2, h)
-            print pos_rect, pos_rect.midbottom
         if position == 'bottom right':
             pos_rect.bottomright = (w, h)
 

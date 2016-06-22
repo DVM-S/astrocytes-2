@@ -12,8 +12,7 @@ class Game_3:
     def __init__(self):
         self.bg = pygame.image.load('game_3.jpg')
 
-        (W_s, H_s) = SCREEN_SIZE
-        self.player_size = (W_s / 3, H_s / 3)
+        self.player_size = (SCREEN_SIZE.W / 3, SCREEN_SIZE.H / 3)
         KINECT_EVENT_STREAM.subscribe(self.event_handler)
 
     def event_handler(self, e):
