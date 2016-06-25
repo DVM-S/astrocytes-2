@@ -25,6 +25,14 @@ class Menu:
         self.init_buttons()
 
     def init_buttons(self):
+        self.game = Button((
+                (305 / 1024.0) * SCREEN_SIZE.W,
+                (305 / 768.0) * SCREEN_SIZE.H),
+            bg=pygame.image.load('menu/g.png'),
+            fg=pygame.image.load('menu/gf.png'),
+            on_left_click=lambda: load_game(1)
+        )
+
         self.btn_1 = Button((
                 (143 / 1024.0) * SCREEN_SIZE.W,
                 (143 / 768.0) * SCREEN_SIZE.H),
@@ -68,9 +76,20 @@ class Menu:
             text=Text('Game 5', FONT_ROBOTO)
         )
 
+        self.profile = Button((
+                (467 / 1024.0) * SCREEN_SIZE.W,
+                (92 / 768.0) * SCREEN_SIZE.H),
+            bg=pygame.image.load('menu/p.png'),
+            fg=pygame.image.load('menu/pf.png'),
+            text=Text('VIEW MY PROFILE', FONT_ROBOTO)
+        )
+
     def render(self):
         SCREEN.blit(self.bg, (0, 0))
 
+        self.game.render((
+            (22 / 1024.0) * SCREEN_SIZE.W,
+            (94 / 768.0) * SCREEN_SIZE.H))
         self.btn_1.render((
             (345 / 1024.0) * SCREEN_SIZE.W,
             (94 / 768.0) * SCREEN_SIZE.H))
@@ -86,3 +105,6 @@ class Menu:
         self.btn_5.render((
             (22 / 1024.0) * SCREEN_SIZE.W,
             (420 / 768.0) * SCREEN_SIZE.H))
+        self.profile.render((
+            (22 / 1024.0) * SCREEN_SIZE.W,
+            (582 / 768.0) * SCREEN_SIZE.H))
