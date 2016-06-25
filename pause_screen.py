@@ -12,7 +12,7 @@ from button import Button
 from text import Text
 
 
-def quit():
+def quit_game():
     pygame.quit()
     quit()
 
@@ -45,7 +45,7 @@ class PauseScreen:
             bg=(80, 80, 80),
             fg=(50, 50, 50),
             text=Text('Quit', FONT_ROBOTO, COLOR_WHITE),
-            on_left_click=quit)
+            on_left_click=quit_game)
 
     def hide(self):
         self.width = 0
