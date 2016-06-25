@@ -13,7 +13,8 @@ from text import Text
 
 
 def quit():
-    pass
+    pygame.quit()
+    quit()
 
 
 class PauseScreen:
