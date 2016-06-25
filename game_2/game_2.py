@@ -31,7 +31,7 @@ LAST_X = 0
 
 class Game_2:
     def __init__(self):
-        self.bg = pygame.image.load('game_2.jpg')
+        self.bg = pygame.image.load('game_2/game_2.jpg')
         self.probability_of_good_char = 0.3  # Probability of next character being good
         self.margin_row = 20
 

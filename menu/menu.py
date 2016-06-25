@@ -19,7 +19,7 @@ def load_game(idx):
 class Menu:
     def __init__(self):
         self.bg = pygame.transform.scale(
-            pygame.image.load('menu.png'),
+            pygame.image.load('menu/menu.png'),
             (SCREEN_SIZE.W, SCREEN_SIZE.H))
 
         self.init_buttons()
