@@ -28,7 +28,8 @@ class Menu:
         self.btn_1 = Button((
                 (143 / 1024.0) * SCREEN_SIZE.W,
                 (143 / 768.0) * SCREEN_SIZE.H),
-            bg=COLOR_GREEN,
+            bg=pygame.image.load('menu/g1.png'),
+            fg=pygame.image.load('menu/g1f.png'),
             text=Text('Game 1', FONT_ROBOTO),
             on_left_click=lambda: load_game(1)
         )
@@ -36,7 +37,8 @@ class Menu:
         self.btn_2 = Button((
                 (143 / 1024.0) * SCREEN_SIZE.W,
                 (143 / 768.0) * SCREEN_SIZE.H),
-            bg=COLOR_GREEN,
+            bg=pygame.image.load('menu/g2.png'),
+            fg=pygame.image.load('menu/g2f.png'),
             text=Text('Game 2', FONT_ROBOTO),
             on_left_click=lambda: load_game(2)
         )
@@ -44,7 +46,8 @@ class Menu:
         self.btn_3 = Button((
                 (143 / 1024.0) * SCREEN_SIZE.W,
                 (143 / 768.0) * SCREEN_SIZE.H),
-            bg=COLOR_GREEN,
+            bg=pygame.image.load('menu/g3.png'),
+            fg=pygame.image.load('menu/g3f.png'),
             text=Text('Game 3', FONT_ROBOTO),
             on_left_click=lambda: load_game(3)
         )
@@ -52,14 +55,16 @@ class Menu:
         self.btn_4 = Button((
                 (143 / 1024.0) * SCREEN_SIZE.W,
                 (143 / 768.0) * SCREEN_SIZE.H),
-            bg=COLOR_GREEN,
+            bg=pygame.image.load('menu/g4.png'),
+            fg=pygame.image.load('menu/g4f.png'),
             text=Text('Game 4', FONT_ROBOTO)
         )
 
         self.btn_5 = Button((
                 (143 / 1024.0) * SCREEN_SIZE.W,
                 (143 / 768.0) * SCREEN_SIZE.H),
-            bg=COLOR_GREEN,
+            bg=pygame.image.load('menu/g5.png'),
+            fg=pygame.image.load('menu/g5f.png'),
             text=Text('Game 5', FONT_ROBOTO)
         )
 
