@@ -1,13 +1,15 @@
 from utils import (
     COLOR_BLACK,
+    FONT_ROBOTO,
     SCREEN)
 
 import pygame
 
 
 class Text:
-    def __init__(self, text, font, color=COLOR_BLACK, align='center center'):
-        self.surface = font.render(text, True, color)
+    def __init__(self, text, font=FONT_ROBOTO, size=20, color=COLOR_BLACK, align='center center'):
+        self.font = pygame.font.Font(font, size)
+        self.surface = self.font.render(text, True, color)
         self.align = align
 
     def render(self, rect):

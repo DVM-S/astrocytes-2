@@ -18,7 +18,7 @@ import random
 
 class Game_1:
     def __init__(self):
-        self.bg = pygame.image.load('game_1.jpg')
+        self.bg = pygame.image.load('game_1/game_1.jpg')
         self.body_frame = None
         self.body_index_frame = None
         self.solved = True

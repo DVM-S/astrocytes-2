@@ -22,16 +22,17 @@ from pykinect2 import PyKinectV2
 import pygame
 import random
 
-from text import Text
+from components.text import Text
 
 INCR = 20
-CHAR_SIZE = Size(FONT_DROID.size(' '))
+# CHAR_SIZE = Size(FONT_DROID.size(' '))
+CHAR_SIZE = Size((28, 54))
 LAST_X = 0
 
 
 class Game_2:
     def __init__(self):
-        self.bg = pygame.image.load('game_2.jpg')
+        self.bg = pygame.image.load('game_2/game_2.jpg')
         self.probability_of_good_char = 0.3  # Probability of next character being good
         self.margin_row = 20
 
@@ -123,9 +124,9 @@ class Char:
         self.fresh = True
         self.is_good = is_good
         if self.is_good:
-            self.text = Text(char, FONT_DROID, COLOR_GREEN)
+            self.text = Text(char, size=40, color=COLOR_GREEN)
         else:
-            self.text = Text(char, FONT_DROID, COLOR_RED)
+            self.text = Text(char, size=40, color=COLOR_RED)
 
         margin_edge = SCREEN_SIZE.W / 4
         self.rect = self.text.surface.get_rect()

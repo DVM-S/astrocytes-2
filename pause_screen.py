@@ -8,8 +8,8 @@ from utils import (
 
 import pygame
 
-from button import Button
-from text import Text
+from components.button import Button
+from components.text import Text
 
 
 def quit_game():
@@ -30,21 +30,21 @@ class PauseScreen:
             (self.max_witdh, 50),
             bg=(80, 80, 80),
             fg=(50, 50, 50),
-            text=Text('Back', FONT_ROBOTO, COLOR_WHITE),
+            text=Text('Back', color=COLOR_WHITE),
             on_left_click=self.load_prev)
 
         self.btn_menu = Button(
             (self.max_witdh, 50),
             bg=(80, 80, 80),
             fg=(50, 50, 50),
-            text=Text('Main Menu', FONT_ROBOTO, COLOR_WHITE),
+            text=Text('Main Menu', color=COLOR_WHITE),
             on_left_click=self.load_menu)
 
         self.btn_quit = Button(
             (self.max_witdh, 50),
             bg=(80, 80, 80),
             fg=(50, 50, 50),
-            text=Text('Quit', FONT_ROBOTO, COLOR_WHITE),
+            text=Text('Quit', color=COLOR_WHITE),
             on_left_click=quit_game)
 
     def hide(self):
