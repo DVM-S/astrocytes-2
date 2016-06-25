@@ -59,7 +59,7 @@ COLOR_WHITE = (255, 255, 255)
 
 # FONTS
 FONT_ROBOTO = 'fonts/roboto/Roboto-Regular.ttf'
-FONT_DROID = 'fonts/DroidSansMono.ttf'
+FONT_DROID = 'fonts/Droid_Sans/DroidSans-Bold.ttf'
 
 
 # SOUNDS
