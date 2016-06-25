@@ -25,7 +25,8 @@ import random
 from text import Text
 
 INCR = 20
-CHAR_SIZE = Size(FONT_DROID.size(' '))
+# CHAR_SIZE = Size(FONT_DROID.size(' '))
+CHAR_SIZE = Size((28, 54))
 LAST_X = 0
 
 
@@ -123,9 +124,9 @@ class Char:
         self.fresh = True
         self.is_good = is_good
         if self.is_good:
-            self.text = Text(char, FONT_DROID, COLOR_GREEN)
+            self.text = Text(char, size=40, color=COLOR_GREEN)
         else:
-            self.text = Text(char, FONT_DROID, COLOR_RED)
+            self.text = Text(char, size=40, color=COLOR_RED)
 
         margin_edge = SCREEN_SIZE.W / 4
         self.rect = self.text.surface.get_rect()

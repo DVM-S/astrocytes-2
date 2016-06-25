@@ -1,7 +1,6 @@
 from utils import (
     ACTIVE,
     COLOR_GREEN,
-    FONT_ROBOTO,
     SCREEN,
     SCREEN_SIZE)
 
@@ -38,7 +37,7 @@ class Menu:
                 (143 / 768.0) * SCREEN_SIZE.H),
             bg=pygame.image.load('menu/g1.png'),
             fg=pygame.image.load('menu/g1f.png'),
-            text=Text('Game 1', FONT_ROBOTO),
+            text=Text('Game 1'),
             on_left_click=lambda: load_game(1)
         )
 
@@ -47,7 +46,7 @@ class Menu:
                 (143 / 768.0) * SCREEN_SIZE.H),
             bg=pygame.image.load('menu/g2.png'),
             fg=pygame.image.load('menu/g2f.png'),
-            text=Text('Game 2', FONT_ROBOTO),
+            text=Text('Game 2'),
             on_left_click=lambda: load_game(2)
         )
 
@@ -56,7 +55,7 @@ class Menu:
                 (143 / 768.0) * SCREEN_SIZE.H),
             bg=pygame.image.load('menu/g3.png'),
             fg=pygame.image.load('menu/g3f.png'),
-            text=Text('Game 3', FONT_ROBOTO),
+            text=Text('Game 3'),
             on_left_click=lambda: load_game(3)
         )
 
@@ -65,7 +64,7 @@ class Menu:
                 (143 / 768.0) * SCREEN_SIZE.H),
             bg=pygame.image.load('menu/g4.png'),
             fg=pygame.image.load('menu/g4f.png'),
-            text=Text('Game 4', FONT_ROBOTO)
+            text=Text('Game 4')
         )
 
         self.btn_5 = Button((
@@ -73,7 +72,7 @@ class Menu:
                 (143 / 768.0) * SCREEN_SIZE.H),
             bg=pygame.image.load('menu/g5.png'),
             fg=pygame.image.load('menu/g5f.png'),
-            text=Text('Game 5', FONT_ROBOTO)
+            text=Text('Game 5')
         )
 
         self.profile = Button((
@@ -81,7 +80,7 @@ class Menu:
                 (92 / 768.0) * SCREEN_SIZE.H),
             bg=pygame.image.load('menu/p.png'),
             fg=pygame.image.load('menu/pf.png'),
-            text=Text('VIEW MY PROFILE', FONT_ROBOTO)
+            text=Text('VIEW MY PROFILE')
         )
 
     def render(self):
