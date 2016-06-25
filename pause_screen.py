@@ -12,14 +12,6 @@ from button import Button
 from text import Text
 
 
-def load_menu():
-    ACTIVE.append('menu')
-
-
-def load_prev():
-    ACTIVE.pop()
-
-
 def quit():
     pass
 
@@ -38,14 +30,14 @@ class PauseScreen:
             bg=(80, 80, 80),
             fg=(50, 50, 50),
             text=Text('Back', FONT_ROBOTO, COLOR_WHITE),
-            on_left_click=load_prev)
+            on_left_click=self.load_prev)
 
         self.btn_menu = Button(
             (self.max_witdh, 50),
             bg=(80, 80, 80),
             fg=(50, 50, 50),
             text=Text('Main Menu', FONT_ROBOTO, COLOR_WHITE),
-            on_left_click=load_menu)
+            on_left_click=self.load_menu)
 
         self.btn_quit = Button(
             (self.max_witdh, 50),
@@ -57,6 +49,14 @@ class PauseScreen:
     def hide(self):
         self.width = 0
         self.hidden = True
+
+    def load_menu(self):
+        self.hide()
+        ACTIVE.append('menu')
+
+    def load_prev(self):
+        self.hide()
+        ACTIVE.pop()
 
     def render(self):
         if self.hidden:
