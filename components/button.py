@@ -1,4 +1,5 @@
 from utils import (
+    ACTIVE,
     EVENT_STREAM,
     SCREEN)
 
@@ -6,8 +7,9 @@ import pygame
 
 
 class Button:
-    def __init__(self, (w, h), bg, fg=None, text=None,
-                 on_left_click=None, on_middle_click=None, on_right_click=None):
+    def __init__(self, context, (w, h), bg, fg=None, text=None, on_left_click=None, on_middle_click=None, on_right_click=None):
+        self.context = context
+
         self.x = 0
         self.y = 0
         self.w = w
@@ -35,11 +37,17 @@ class Button:
                 self.is_focused = False
 
     def focused(self, e):
+        if ACTIVE[-1] != self.context:
+            return False
+
         return (
             (self.x < e.pos[0] and e.pos[0] < self.x + self.w) and
             (self.y < e.pos[1] and e.pos[1] < self.y + self.h))
 
     def on_click(self, e):
+        if ACTIVE[-1] != self.context:
+            return
+
         if (
             (self.x < e.pos[0] and e.pos[0] < self.x + self.w) and
             (self.y < e.pos[1] and e.pos[1] < self.y + self.h)

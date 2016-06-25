@@ -24,7 +24,7 @@ class Menu:
         self.init_buttons()
 
     def init_buttons(self):
-        self.game = Button((
+        self.game = Button('menu', (
                 (305 / 1024.0) * SCREEN_SIZE.W,
                 (305 / 768.0) * SCREEN_SIZE.H),
             bg=pygame.image.load('menu/g.png'),
@@ -32,7 +32,7 @@ class Menu:
             on_left_click=lambda: load_game(1)
         )
 
-        self.btn_1 = Button((
+        self.btn_1 = Button('menu', (
                 (143 / 1024.0) * SCREEN_SIZE.W,
                 (143 / 768.0) * SCREEN_SIZE.H),
             bg=pygame.image.load('menu/g1.png'),
@@ -41,7 +41,7 @@ class Menu:
             on_left_click=lambda: load_game(1)
         )
 
-        self.btn_2 = Button((
+        self.btn_2 = Button('menu', (
                 (143 / 1024.0) * SCREEN_SIZE.W,
                 (143 / 768.0) * SCREEN_SIZE.H),
             bg=pygame.image.load('menu/g2.png'),
@@ -50,7 +50,7 @@ class Menu:
             on_left_click=lambda: load_game(2)
         )
 
-        self.btn_3 = Button((
+        self.btn_3 = Button('menu', (
                 (143 / 1024.0) * SCREEN_SIZE.W,
                 (143 / 768.0) * SCREEN_SIZE.H),
             bg=pygame.image.load('menu/g3.png'),
@@ -59,7 +59,7 @@ class Menu:
             on_left_click=lambda: load_game(3)
         )
 
-        self.btn_4 = Button((
+        self.btn_4 = Button('menu', (
                 (143 / 1024.0) * SCREEN_SIZE.W,
                 (143 / 768.0) * SCREEN_SIZE.H),
             bg=pygame.image.load('menu/g4.png'),
@@ -67,7 +67,7 @@ class Menu:
             text=Text('Game 4')
         )
 
-        self.btn_5 = Button((
+        self.btn_5 = Button('menu', (
                 (143 / 1024.0) * SCREEN_SIZE.W,
                 (143 / 768.0) * SCREEN_SIZE.H),
             bg=pygame.image.load('menu/g5.png'),
@@ -75,7 +75,7 @@ class Menu:
             text=Text('Game 5')
         )
 
-        self.profile = Button((
+        self.profile = Button('menu', (
                 (467 / 1024.0) * SCREEN_SIZE.W,
                 (92 / 768.0) * SCREEN_SIZE.H),
             bg=pygame.image.load('menu/p.png'),

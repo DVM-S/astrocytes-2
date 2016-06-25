@@ -27,6 +27,7 @@ class PauseScreen:
 
     def init_buttons(self):
         self.btn_back = Button(
+            'pause-screen',
             (self.max_witdh, 50),
             bg=(80, 80, 80),
             fg=(50, 50, 50),
@@ -34,6 +35,7 @@ class PauseScreen:
             on_left_click=self.load_prev)
 
         self.btn_menu = Button(
+            'pause-screen',
             (self.max_witdh, 50),
             bg=(80, 80, 80),
             fg=(50, 50, 50),
@@ -41,6 +43,7 @@ class PauseScreen:
             on_left_click=self.load_menu)
 
         self.btn_quit = Button(
+            'pause-screen',
             (self.max_witdh, 50),
             bg=(80, 80, 80),
             fg=(50, 50, 50),
