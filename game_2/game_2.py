@@ -22,7 +22,7 @@ from pykinect2 import PyKinectV2
 import pygame
 import random
 
-from text import Text
+from components.text import Text
 
 INCR = 20
 # CHAR_SIZE = Size(FONT_DROID.size(' '))

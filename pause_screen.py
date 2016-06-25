@@ -8,8 +8,8 @@ from utils import (
 
 import pygame
 
-from button import Button
-from text import Text
+from components.button import Button
+from components.text import Text
 
 
 def load_menu():
