@@ -13,7 +13,7 @@ from game_1.game_1 import Game_1
 from game_2.game_2 import Game_2
 from game_3.game_3 import Game_3
 from menu.menu import Menu
-from pause_screen import PauseScreen
+from components.pause_screen import PauseScreen
 
 
 class Astrocytes:
