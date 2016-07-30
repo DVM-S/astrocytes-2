@@ -9,8 +9,12 @@ import pygame
 class Text:
     def __init__(self, text, font=FONT_ROBOTO, size=20, color=COLOR_BLACK, align='center center'):
         self.font = pygame.font.Font(font, size)
+        self.color = color
         self.surface = self.font.render(text, True, color)
         self.align = align
+
+    def update_text(self, text):
+        self.surface = self.font.render(text, True, self.color)
 
     def render(self, rect):
         (x, y) = (rect.x, rect.y)

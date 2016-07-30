@@ -3,6 +3,7 @@ from utils import (  # COLORS & FONTS
     COLOR_GREEN,
     COLOR_RED,
     COLOR_YELLOW,
+    COLOR_WHITE,
     FONT_DROID)
 from utils import (  # KINECT
     KINECT,
@@ -24,7 +25,7 @@ import random
 
 from components.text import Text
 
-INCR = 20
+SPEED = 10
 # CHAR_SIZE = Size(FONT_DROID.size(' '))
 CHAR_SIZE = Size((28, 54))
 LAST_X = 0
@@ -34,7 +35,9 @@ class Game_2:
     def __init__(self):
         self.bg = pygame.image.load('game_2/game_2.jpg')
         self.probability_of_good_char = 0.3  # Probability of next character being good
-        self.margin_row = 20
+        self.row_margin = 100
+        self.score = 0
+        self.score_text = Text(str(self.score), size=30, color=COLOR_WHITE)
 
         self.chars_on_screen = []
         self.good_chars_on_screen_count = 0
@@ -82,8 +85,10 @@ class Game_2:
             for char in self.chars_on_screen:
                 if char.collide(target_left) or char.collide(target_right):
                     if char.is_good:
+                        self.score += 10
                         CORRECT_ANSWER.play()
                     else:
+                        self.score -= 2
                         INCORRECT_ANSWER.play()
 
     def render(self):
@@ -91,17 +96,17 @@ class Game_2:
 
         bad_chars = list('BCDFGHJKLMNPQRSTVWXYZ')
         good_chars = list('AEIOU')
-        next_char_at = (self.margin_row + CHAR_SIZE.H) / INCR
-
-        self.frame += 1
-        if self.frame % next_char_at == 0:
-            if random.random() <= self.probability_of_good_char:
-                char = Char(random.choice(good_chars), is_good=True)
-            else:
-                char = Char(random.choice(bad_chars), is_good=False)
-            self.chars_on_screen.append(char)
+        next_char_at = (self.row_margin + CHAR_SIZE.H) / SPEED
 
         if self.body_index_frame is not None:
+            self.frame += 1
+            if self.frame % next_char_at == 0:
+                if random.random() <= self.probability_of_good_char:
+                    char = Char(random.choice(good_chars), is_good=True)
+                else:
+                    char = Char(random.choice(bad_chars), is_good=False)
+                self.chars_on_screen.append(char)
+
             for char in self.chars_on_screen:
                 char.render()
 
@@ -110,6 +115,12 @@ class Game_2:
                 self.body_index_frame,
                 self.player_size,
                 'bottom center')
+            self.score_text.update_text('%02d' % (self.score))
+            score_text_rect = self.score_text.surface.get_rect()
+            score_text_rect.topright = (
+                0.79 * SCREEN_SIZE.W,
+                0.05 * SCREEN_SIZE.H)
+            self.score_text.render(score_text_rect)
 
             self.chars_on_screen = [
                 char for char in self.chars_on_screen if char.fresh]
@@ -128,11 +139,11 @@ class Char:
         else:
             self.text = Text(char, size=40, color=COLOR_RED)
 
-        margin_edge = SCREEN_SIZE.W / 4
+        edge_margin = SCREEN_SIZE.W / 4
         self.rect = self.text.surface.get_rect()
-        self.rect.x = random.randint(margin_edge, SCREEN_SIZE.W - CHAR_SIZE.W - margin_edge)
-        while abs(self.rect.x - LAST_X) < 50:
-            self.rect.x = random.randint(margin_edge, SCREEN_SIZE.W - CHAR_SIZE.W - margin_edge)
+        self.rect.x = random.randint(edge_margin, SCREEN_SIZE.W - CHAR_SIZE.W - edge_margin)
+        while abs(self.rect.x - LAST_X) < 100:
+            self.rect.x = random.randint(edge_margin, SCREEN_SIZE.W - CHAR_SIZE.W - edge_margin)
         LAST_X = self.rect.x
         self.rect.y = -CHAR_SIZE.H
 
@@ -143,7 +154,7 @@ class Char:
         return did_collide
 
     def move(self):
-        self.rect.y += INCR
+        self.rect.y += SPEED
         if self.rect.y >= SCREEN_SIZE.H:
             self.fresh = False
 
