@@ -25,17 +25,19 @@ import random
 
 from components.text import Text
 
-SPEED = 10
 # CHAR_SIZE = Size(FONT_DROID.size(' '))
 CHAR_SIZE = Size((28, 54))
 LAST_X = 0
 
 
 class Game_2:
+    speed = 10
+    row_margin = 100
+    col_margin = 50
+
     def __init__(self):
         self.bg = pygame.image.load('game_2/game_2.jpg')
         self.probability_of_good_char = 0.3  # Probability of next character being good
-        self.row_margin = 100
         self.score = 0
         self.score_text = Text(str(self.score), size=30, color=COLOR_WHITE)
 
@@ -96,7 +98,7 @@ class Game_2:
 
         bad_chars = list('BCDFGHJKLMNPQRSTVWXYZ')
         good_chars = list('AEIOU')
-        next_char_at = (self.row_margin + CHAR_SIZE.H) / SPEED
+        next_char_at = (Game_2.row_margin + CHAR_SIZE.H) / Game_2.speed
 
         if self.body_index_frame is not None:
             self.frame += 1
@@ -142,7 +144,7 @@ class Char:
         edge_margin = SCREEN_SIZE.W / 4
         self.rect = self.text.surface.get_rect()
         self.rect.x = random.randint(edge_margin, SCREEN_SIZE.W - CHAR_SIZE.W - edge_margin)
-        while abs(self.rect.x - LAST_X) < 100:
+        while abs(self.rect.x - LAST_X) < Game_2.col_margin:
             self.rect.x = random.randint(edge_margin, SCREEN_SIZE.W - CHAR_SIZE.W - edge_margin)
         LAST_X = self.rect.x
         self.rect.y = -CHAR_SIZE.H
@@ -154,7 +156,7 @@ class Char:
         return did_collide
 
     def move(self):
-        self.rect.y += SPEED
+        self.rect.y += Game_2.speed
         if self.rect.y >= SCREEN_SIZE.H:
             self.fresh = False
 
