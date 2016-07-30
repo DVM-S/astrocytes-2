@@ -14,6 +14,7 @@ from game_2.game_2 import Game_2
 from game_3.game_3 import Game_3
 from menu.menu import Menu
 from components.pause_screen import PauseScreen
+from profile_page.profile_page import ProfilePage
 
 
 class Astrocytes:
@@ -24,6 +25,7 @@ class Astrocytes:
 
         self.menu = Menu()
         self.pause_screen = PauseScreen()
+        self.profile_page = ProfilePage()
         self.game_1 = Game_1()
         self.game_2 = Game_2()
         self.game_3 = Game_3()
@@ -87,6 +89,9 @@ class Astrocytes:
 
             elif ACTIVE[-1] == 'pause-screen':
                 self.pause_screen.render()
+
+            elif ACTIVE[-1] == 'profile_page':
+                self.profile_page.render()
 
             pygame.display.update()
 

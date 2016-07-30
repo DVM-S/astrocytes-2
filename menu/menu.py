@@ -15,6 +15,11 @@ def load_game(idx):
     print 'GAME %d LOADED' % (idx)
 
 
+def load_profile_page():
+    ACTIVE.append('profile_page')
+    print 'PROFILE LOADED'
+
+
 class Menu:
     def __init__(self):
         self.bg = pygame.transform.scale(
@@ -29,15 +34,14 @@ class Menu:
                 (305 / 768.0) * SCREEN_SIZE.H),
             bg=pygame.image.load('menu/g.png'),
             fg=pygame.image.load('menu/gf.png'),
-            on_left_click=lambda: load_game(1)
+            on_left_click=lambda: load_game(2)
         )
 
         self.btn_1 = Button('menu', (
                 (143 / 1024.0) * SCREEN_SIZE.W,
                 (143 / 768.0) * SCREEN_SIZE.H),
             bg=pygame.image.load('menu/g1.png'),
-            fg=pygame.image.load('menu/g1f.png'),
-            on_left_click=lambda: load_game(1)
+            fg=pygame.image.load('menu/g1f.png')
         )
 
         self.btn_2 = Button('menu', (
@@ -45,7 +49,7 @@ class Menu:
                 (143 / 768.0) * SCREEN_SIZE.H),
             bg=pygame.image.load('menu/g2.png'),
             fg=pygame.image.load('menu/g2f.png'),
-            on_left_click=lambda: load_game(2)
+            on_left_click=lambda: load_game(1)
         )
 
         self.btn_3 = Button('menu', (
@@ -53,7 +57,7 @@ class Menu:
                 (143 / 768.0) * SCREEN_SIZE.H),
             bg=pygame.image.load('menu/g3.png'),
             fg=pygame.image.load('menu/g3f.png'),
-            on_left_click=lambda: load_game(3)
+            on_left_click=load_profile_page
         )
 
         self.btn_4 = Button('menu', (
