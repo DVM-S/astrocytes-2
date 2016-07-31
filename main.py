@@ -12,6 +12,7 @@ import pygame
 from game_1.game_1 import Game_1
 from game_2.game_2 import Game_2
 from game_3.game_3 import Game_3
+from game_4.game_4 import Game_4
 from menu.menu import Menu
 from components.pause_screen import PauseScreen
 from profile_page.profile_page import ProfilePage
@@ -34,6 +35,7 @@ class Astrocytes:
         self.game_1 = Game_1()
         self.game_2 = Game_2()
         self.game_3 = Game_3()
+        self.game_4 = Game_4()
 
         EVENT_STREAM.subscribe(self.event_handler)
 
@@ -91,6 +93,16 @@ class Astrocytes:
                     POST_NEW_BODY_INDEX_FRAME_EVENT(
                         body_index_frame=KINECT.get_last_body_index_frame())
                 self.game_3.render()
+
+            elif ACTIVE[-1] == 'game_4':
+                if KINECT.has_new_body_frame():
+                    POST_NEW_BODY_FRAME_EVENT(
+                        body_frame=KINECT.get_last_body_frame())
+
+                if KINECT.has_new_body_index_frame():
+                    POST_NEW_BODY_INDEX_FRAME_EVENT(
+                        body_index_frame=KINECT.get_last_body_index_frame())
+                self.game_4.render()
 
             elif ACTIVE[-1] == 'pause_screen':
                 self.pause_screen.render()

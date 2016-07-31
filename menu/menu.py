@@ -49,9 +49,9 @@ class Menu:
         self.btn_2 = Button('menu', (
                 (143 / 1024.0) * SCREEN_SIZE.W,
                 (143 / 768.0) * SCREEN_SIZE.H),
-            bg=pygame.image.load('menu/g2.png'),
-            fg=pygame.image.load('menu/g2f.png'),
-            on_left_click=lambda: load_game(1)
+            bg=pygame.image.load('menu/g4.png'),
+            fg=pygame.image.load('menu/g4f.png'),
+            on_left_click=lambda: load_game(4)
         )
 
         self.btn_3 = Button('menu', (
@@ -65,8 +65,9 @@ class Menu:
         self.btn_4 = Button('menu', (
                 (143 / 1024.0) * SCREEN_SIZE.W,
                 (143 / 768.0) * SCREEN_SIZE.H),
-            bg=pygame.image.load('menu/g4.png'),
-            fg=pygame.image.load('menu/g4f.png'),
+            bg=pygame.image.load('menu/g2.png'),
+            fg=pygame.image.load('menu/g2f.png'),
+            on_left_click=lambda: load_game(1)
         )
 
         self.btn_5 = Button('menu', (

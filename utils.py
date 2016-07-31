@@ -27,7 +27,7 @@ KINECT = PyKinectRuntime.PyKinectRuntime(
 EVENT_STREAM = Subject()
 KINECT_EVENT_STREAM = Subject()
 
-SCREEN_SIZE = Size(512, 384)
+SCREEN_SIZE = Size(512*2, 384*2)
 SCREEN = pygame.display.set_mode(
     (SCREEN_SIZE.W, SCREEN_SIZE.H),
     pygame.DOUBLEBUF | pygame.HWSURFACE)
