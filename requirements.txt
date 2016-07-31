@@ -1,0 +1,5 @@
+comtypes==1.1.2
+numpy==1.11.1
+#pygame==1.9.1  # http://pygame.org/ftp/pygame-1.9.1.win32-py2.7.msi
+pykinect2==0.1.0
+Rx==1.5.2
