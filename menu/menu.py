@@ -5,6 +5,7 @@ from utils import (
     SCREEN_SIZE)
 
 import pygame
+import webbrowser
 
 from components.button import Button
 from components.text import Text
@@ -22,6 +23,10 @@ def load_settings_screen():
     ACTIVE.append('settings_screen')
 
 
+def open_webpage():
+    webbrowser.open('http://astrocytes.azurewebsites.net/')
+
+
 class Menu:
     def __init__(self):
         self.bg = pygame.transform.scale(
@@ -31,7 +36,13 @@ class Menu:
         self.init_buttons()
 
     def init_buttons(self):
-        self.game = Button('menu', (
+        self.logo_btn = Button(
+            'menu',
+            (30, 30),
+            bg=pygame.image.load('menu/logo.png'),
+            on_left_click=open_webpage)
+
+        self.game_btn = Button('menu', (
                 (305 / 1024.0) * SCREEN_SIZE.W,
                 (305 / 768.0) * SCREEN_SIZE.H),
             bg=pygame.image.load('menu/g.png'),
@@ -87,7 +98,10 @@ class Menu:
     def render(self):
         SCREEN.blit(self.bg, (0, 0))
 
-        self.game.render((
+        self.logo_btn.render((
+            ((12) / 1024.0) * SCREEN_SIZE.W,
+            ((8) / 768.0) * SCREEN_SIZE.H))
+        self.game_btn.render((
             ((22 + 10) / 1024.0) * SCREEN_SIZE.W,
             ((94 + 60) / 768.0) * SCREEN_SIZE.H))
         self.btn_1.render((
