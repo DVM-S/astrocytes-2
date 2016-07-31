@@ -16,6 +16,8 @@ from menu.menu import Menu
 from components.pause_screen import PauseScreen
 from profile_page.profile_page import ProfilePage
 
+from reg_form.reg_form import RegForm
+
 
 class Astrocytes:
     def __init__(self):
@@ -26,6 +28,7 @@ class Astrocytes:
         self.menu = Menu()
         self.pause_screen = PauseScreen()
         self.profile_page = ProfilePage()
+        self.reg_form = RegForm()
         self.game_1 = Game_1()
         self.game_2 = Game_2()
         self.game_3 = Game_3()
@@ -92,6 +95,9 @@ class Astrocytes:
 
             elif ACTIVE[-1] == 'profile_page':
                 self.profile_page.render()
+
+            elif ACTIVE[-1] == 'reg_form':
+                self.reg_form.render()
 
             pygame.display.update()
 

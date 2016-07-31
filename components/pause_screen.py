@@ -10,18 +10,12 @@ import pygame
 
 from components.button import Button
 from components.text import Text
+from components.sidebar import Sidebar
 
 
-def quit_game():
-    pygame.quit()
-    quit()
-
-
-class PauseScreen:
+class PauseScreen(Sidebar):
     def __init__(self):
-        self.hidden = True
-        self.width = 0
-        self.max_witdh = 200
+        super(PauseScreen, self).__init__()
 
         self.init_buttons()
 
@@ -48,7 +42,7 @@ class PauseScreen:
             bg=(80, 80, 80),
             fg=(50, 50, 50),
             text=Text('Quit', color=COLOR_WHITE),
-            on_left_click=quit_game)
+            on_left_click=self.quit_game)
 
     def hide(self):
         self.width = 0
@@ -62,22 +56,12 @@ class PauseScreen:
         self.hide()
         ACTIVE.pop()
 
+    def quit_game(self):
+        pygame.quit()
+        quit()
+
     def render(self):
-        if self.hidden:
-            tint = pygame.Surface(
-                (SCREEN_SIZE.W, SCREEN_SIZE.H),
-                pygame.SRCALPHA)
-            tint.fill((0, 0, 0, 150))
-            SCREEN.blit(tint, (0, 0))
-            self.hidden = False
-
-        SCREEN.fill(
-            (100, 100, 100),
-            (SCREEN_SIZE.W - self.width, 0, self.width, SCREEN_SIZE.H))
-
+        super(PauseScreen, self).render()
         self.btn_back.render((SCREEN_SIZE.W - self.width, 0))
         self.btn_menu.render((SCREEN_SIZE.W - self.width, 50))
         self.btn_quit.render((SCREEN_SIZE.W - self.width, 100))
-
-        if self.width < self.max_witdh:
-            self.width += 50
