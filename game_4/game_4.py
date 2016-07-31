@@ -32,6 +32,7 @@ class Game_4:
             int(KINECT_FRAME_SIZE.W / 1.5),
             int(KINECT_FRAME_SIZE.H / 1.5))
 
+        self.level = 1
         self.health = 100.0
         self.triggered_once_this_turn = False
         self.should_load_next_question = True
@@ -101,7 +102,7 @@ class Game_4:
     def load_next_question(self):
         q_idx = random.randint(0, len(self.new_questions) - 1)
         self.question = self.new_questions.pop(q_idx)
-        print self.question['answer']
+        print self.question
         self.should_load_next_question = False
         self.player_reset = False
         self.triggered_once_this_turn = False
@@ -110,8 +111,6 @@ class Game_4:
         if self.should_load_next_question:
             if self.player_reset:
                 self.load_next_question()
-
-        question_text = Text(self.question['text'], FONT_DROID, 40, (15, 244, 198))
 
         SCREEN.blit(pygame.transform.scale(self.bg, (SCREEN_SIZE.W, SCREEN_SIZE.H)), (0, 0))
         # SCREEN.blit(self.croc_left, (330, 275))
@@ -174,6 +173,19 @@ class Game_4:
                 self.punch = None
 
         SCREEN.blit(self.q_tab, (0, 601))
+
+        n = 30
+
+        question_text = self.question['text']
+        question_text = [question_text[i:i+n] for i in range(0, len(question_text), n)]
+        for (i, line) in enumerate(question_text):
+            line = Text(line, FONT_DROID, 30, (15, 244, 198))
+            line_rect = line.get_rect()
+            line_rect.center = (SCREEN_SIZE.W / 2, SCREEN_SIZE.H - 140 + (0.5 + i) * line_rect.height)
+            line.render(line_rect)
+
+        option1 = Text(self.question['option1'], FONT_DROID, 40, (1, 22, 39))
+        option2 = Text(self.question['option2'], FONT_DROID, 40, (1, 22, 39))
 
         if self.body_frame is not None:
             render_player(

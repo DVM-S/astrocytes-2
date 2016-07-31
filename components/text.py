@@ -16,6 +16,9 @@ class Text:
     def update_text(self, text):
         self.surface = self.font.render(text, True, self.color)
 
+    def get_rect(self):
+        return self.surface.get_rect()
+
     def render(self, rect):
         (x, y) = (rect.x, rect.y)
         (w, h) = (rect.w, rect.h)
