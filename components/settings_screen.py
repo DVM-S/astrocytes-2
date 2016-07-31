@@ -33,16 +33,16 @@ class SettingsScreen(Sidebar):
             (self.max_witdh, 50),
             bg=(80, 80, 80),
             fg=(50, 50, 50),
-            text=Text('Register', color=COLOR_WHITE),
-            on_left_click=self.load_reg_form)
+            text=Text('Login', color=COLOR_WHITE),
+            on_left_click=self.load_login_form)
 
     def load_prev(self):
         self.hide()
         self.btn_back.on_left_click = None
 
-    def load_reg_form(self):
+    def load_login_form(self):
         self.hide()
-        ACTIVE.append('reg_form')
+        ACTIVE.append('login_form')
 
     def render(self):
         super(SettingsScreen, self).render()

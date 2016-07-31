@@ -18,7 +18,7 @@ from components.pause_screen import PauseScreen
 from profile_page.profile_page import ProfilePage
 from components.settings_screen import SettingsScreen
 
-from reg_form.reg_form import RegForm
+from login_form.login_form import LoginForm
 
 
 class Astrocytes:
@@ -31,7 +31,7 @@ class Astrocytes:
         self.pause_screen = PauseScreen()
         self.profile_page = ProfilePage()
         self.settings_screen = SettingsScreen()
-        self.reg_form = RegForm()
+        self.login_form = LoginForm()
         self.game_1 = Game_1()
         self.game_2 = Game_2()
         self.game_3 = Game_3()
@@ -113,8 +113,8 @@ class Astrocytes:
             elif ACTIVE[-1] == 'settings_screen':
                 self.settings_screen.render()
 
-            elif ACTIVE[-1] == 'reg_form':
-                self.reg_form.render()
+            elif ACTIVE[-1] == 'login_form':
+                self.login_form.render()
 
             pygame.display.update()
 

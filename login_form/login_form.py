@@ -39,7 +39,7 @@ def rad(deg):
     return deg / 180.0 * math.pi
 
 
-class RegForm:
+class LoginForm:
     def __init__(self):
         # Create form
         self.f = Form(False)
@@ -57,7 +57,7 @@ class RegForm:
         EVENT_STREAM.subscribe(self.event_handler)
 
     def event_handler(self, e):
-        if ACTIVE[-1] == 'reg_form':
+        if ACTIVE[-1] == 'login_form':
             if e.type == pygame.KEYDOWN:
                 self.f.update(SCREEN, e)
 
