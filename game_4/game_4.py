@@ -19,6 +19,7 @@ from utils import (  # PYGAME
 
 from pykinect2 import PyKinectV2
 import csv
+import time
 import pygame
 import random
 
@@ -33,6 +34,8 @@ class Game_4:
             int(KINECT_FRAME_SIZE.H / 1.5))
 
         self.level = 1
+        self.timer = 60
+        self.timer_prev = time.time()
         self.health = 100.0
         self.triggered_once_this_turn = False
         self.should_load_next_question = True
@@ -78,7 +81,6 @@ class Game_4:
                     question['answer'] = 2
                 self.new_questions.append(question)
 
-        # self.tab = pygame.image.load('tab.png')
         KINECT_EVENT_STREAM.subscribe(self.event_handler)
 
     def event_handler(self, e):
@@ -86,18 +88,6 @@ class Game_4:
             self.body_frame = e.body_frame
         elif e.type == NEW_BODY_INDEX_FRAME_EVENT:
             self.body_index_frame = e.body_index_frame
-
-    # def croc_punch_left(self):
-    #     pass
-
-    # def crock_punch_right(self):
-    #     pass
-
-    # def player_punch_left(self):
-    #     pass
-
-    # def player_punch_right(self):
-    #     pass
 
     def load_next_question(self):
         q_idx = random.randint(0, len(self.new_questions) - 1)
@@ -107,6 +97,12 @@ class Game_4:
         self.triggered_once_this_turn = False
 
     def render(self):
+        timer_curr = time.time()
+        if timer_curr - self.timer_prev >= 1:
+            self.timer_prev = timer_curr
+            self.timer -= 1
+            pass
+
         if self.should_load_next_question:
             if self.player_reset:
                 self.load_next_question()
@@ -124,7 +120,7 @@ class Game_4:
         # SCREEN.blit(self.player_left_big, (130, 190))
         # SCREEN.blit(self.player_right_big, (430, 190))
         health_rect = self.health_red.get_rect()
-        health_rect.midtop = (SCREEN_SIZE.W / 2, 20)
+        health_rect.midtop = (SCREEN_SIZE.W / 2, 30)
         SCREEN.blit(self.health_red, health_rect)
         SCREEN.blit(
             self.health_green,
@@ -197,11 +193,21 @@ class Game_4:
             line_rect.center = (SCREEN_SIZE.W - 15 - 230 / 2, SCREEN_SIZE.H - 90 - 20 + (1 + i) * line_rect.height)
             line.render(line_rect)
 
+        level_text = Text('Round %d' % (self.level), FONT_DROID, 40, (246, 71, 64))
+        level_text_rect = level_text.get_rect()
+        level_text_rect.topleft = (45, 25)
+        level_text.render(level_text_rect)
+
+        level_text = Text('%02d:%02d' % (self.timer / 60, self.timer % 60), FONT_DROID, 40, (246, 71, 64))
+        level_text_rect = level_text.get_rect()
+        level_text_rect.topleft = (SCREEN_SIZE.W - level_text_rect.width - 45, 25)
+        level_text.render(level_text_rect)
+
         if self.body_frame is not None:
-            render_player(
-                self.body_index_frame,
-                self.player_size,
-                'bottom center')
+            # render_player(
+            #     self.body_index_frame,
+            #     self.player_size,
+            #     'bottom center')
 
             for body in self.body_frame.bodies:
                 if not body.is_tracked:
