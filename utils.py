@@ -2,11 +2,12 @@ from rx.subjects import Subject
 import ctypes
 import numpy as np
 import pygame
+import os
 
 from pykinect2 import PyKinectV2
 from pykinect2 import PyKinectRuntime
 
-
+os.environ['SDL_VIDEO_CENTERED'] = '1'
 pygame.init()
 
 
@@ -27,10 +28,10 @@ KINECT = PyKinectRuntime.PyKinectRuntime(
 EVENT_STREAM = Subject()
 KINECT_EVENT_STREAM = Subject()
 
-SCREEN_SIZE = Size(512*2, 384*2)
+SCREEN_SIZE = Size(1024, 768)
 SCREEN = pygame.display.set_mode(
     (SCREEN_SIZE.W, SCREEN_SIZE.H),
-    pygame.DOUBLEBUF | pygame.HWSURFACE)
+    pygame.DOUBLEBUF | pygame.HWSURFACE | pygame.NOFRAME)
 
 KINECT_FRAME_SIZE = Size(
     KINECT.body_index_frame_desc.Width,
