@@ -45,8 +45,7 @@ class Astrocytes:
         if e.type == pygame.KEYDOWN:
             if e.key == pygame.K_ESCAPE:
                 if ACTIVE[-1] == 'pause_screen':
-                    self.settings_screen.hide()
-                    ACTIVE.pop()
+                    self.pause_screen.hide()
                 else:
                     ACTIVE.append('pause_screen')
 

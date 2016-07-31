@@ -50,7 +50,6 @@ class PauseScreen(Sidebar):
 
     def load_prev(self):
         self.hide()
-        ACTIVE.pop()
 
     def quit_game(self):
         pygame.quit()

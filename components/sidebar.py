@@ -1,4 +1,5 @@
 from utils import (
+    ACTIVE,
     SCREEN,
     SCREEN_SIZE)
 
@@ -17,6 +18,7 @@ class Sidebar(object):
     def hide(self):
         self.width = 0
         self.hidden = True
+        ACTIVE.pop()
 
     def render(self):
         if self.hidden:
@@ -27,9 +29,9 @@ class Sidebar(object):
             SCREEN.blit(tint, (0, 0))
             self.hidden = False
 
+        if self.width < self.max_witdh:
+            self.width += 45
+
         SCREEN.fill(
             (100, 100, 100),
             (SCREEN_SIZE.W - self.width, 0, self.width, SCREEN_SIZE.H))
-
-        if self.width < self.max_witdh:
-            self.width += 50
