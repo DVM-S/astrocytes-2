@@ -4,13 +4,15 @@ from utils import (  # COLORS & FONTS
     FONT_DROID)
 from utils import (  # KINECT
     KINECT,
-    EVENT_STREAM,
+    KINECT_EVENT_STREAM,
     KINECT_FRAME_SIZE,
     NEW_BODY_FRAME_EVENT,
     NEW_BODY_INDEX_FRAME_EVENT)
 from utils import (  # PYGAME
     CORRECT_ANSWER,
+    EVENT_STREAM,
     INCORRECT_ANSWER,
+    render_player,
     SCREEN,
     SCREEN_SIZE,
     Size)
@@ -42,8 +44,23 @@ class Game_4:
         self.player_right = pygame.image.load('game_4/player-right.png')
         self.player_right_big = pygame.image.load('game_4/player-right-big.png')
 
-        EVENT_STREAM.subscribe(self.event_handler)
+        self.body_frame = None
+        self.body_index_frame = None
+
+        self.player_size = Size(
+            int(KINECT_FRAME_SIZE.W / 1.5),
+            int(KINECT_FRAME_SIZE.H / 1.5))
+
+        self.question = {
+            'text': 'this is text',
+            'optoin1': 'opt a',
+            'optoin2': 'second option',
+            'answer': 2,
+        }
+
         # self.tab = pygame.image.load('tab.png')
+        EVENT_STREAM.subscribe(self.event_handler)
+        KINECT_EVENT_STREAM.subscribe(self.event_handler)
 
     def event_handler(self, e):
         if e.type == pygame.KEYDOWN:
@@ -57,28 +74,28 @@ class Game_4:
         elif e.type == NEW_BODY_INDEX_FRAME_EVENT:
             self.body_index_frame = e.body_index_frame
 
-    def croc_punch_left(self):
-        pass
+    # def croc_punch_left(self):
+    #     pass
 
-    def crock_punch_right(self):
-        pass
+    # def crock_punch_right(self):
+    #     pass
 
-    def player_punch_left(self):
-        pass
+    # def player_punch_left(self):
+    #     pass
 
-    def player_punch_right(self):
-        pass
+    # def player_punch_right(self):
+    #     pass
 
     def render(self):
         SCREEN.blit(pygame.transform.scale(self.bg, (SCREEN_SIZE.W, SCREEN_SIZE.H)), (0, 0))
         # SCREEN.blit(self.croc_left, (330, 275))
         # SCREEN.blit(self.croc_right, (530, 275))
 
-        # SCREEN.blit(self.croc_left_big, (330, 200))
-        # SCREEN.blit(self.croc_right_big, (430, 200))
-
         # SCREEN.blit(self.player_left, (0, 400))
         # SCREEN.blit(self.player_right, (800, 310))
+
+        # SCREEN.blit(self.croc_left_big, (330, 200))
+        # SCREEN.blit(self.croc_right_big, (430, 200))
 
         # SCREEN.blit(self.player_left_big, (130, 190))
         # SCREEN.blit(self.player_right_big, (430, 190))
@@ -103,7 +120,7 @@ class Game_4:
                 self.punch = None
 
         if self.punch == 'croc_right':
-            SCREEN.blit(self.croc_right_big, (430, 190))
+            SCREEN.blit(self.croc_right_big, (430, 200))
             self.punch_frame += 1
             if self.punch_frame == self.punch_frame_length:
                 self.punch_frame = 0
@@ -124,5 +141,43 @@ class Game_4:
                 self.punch = None
 
         SCREEN.blit(self.q_tab, (0, 601))
+
+        if self.body_frame is not None:
+            render_player(
+                self.body_index_frame,
+                self.player_size,
+                'bottom center')
+
+            print self.body_frame.bodies
+            for body in self.body_frame.bodies:
+                if not body.is_tracked:
+                    continue
+                joints = body.joints
+
+                hand_left = joints[PyKinectV2.JointType_HandLeft].Position.z
+                hand_right = joints[PyKinectV2.JointType_HandRight].Position.z
+
+                spine_mid = joints[PyKinectV2.JointType_SpineMid].Position.z
+
+                player_choice = 0
+                if spine_mid - hand_left > 0.5:
+                    player_choice = 1
+                if spine_mid - hand_right > 0.5:
+                    player_choice = 2
+
+                if player_choice == self.question['answer']:
+                    if self.question['answer'] == 1:
+                        self.punch = 'player_left'
+                    elif self.question['answer'] == 2:
+                        self.punch = 'player_right'
+
+                elif not player_choice == 0:
+                    if self.question['answer'] == 1:
+                        self.punch = 'croc_right'
+                    elif self.question['answer'] == 2:
+                        self.punch = 'croc_left'
+
+                print player_choice, self.question['answer'], self.punch
+
 
         pygame.display.update()
