@@ -10,7 +10,6 @@ from utils import (  # KINECT
     NEW_BODY_INDEX_FRAME_EVENT)
 from utils import (  # PYGAME
     CORRECT_ANSWER,
-    EVENT_STREAM,
     INCORRECT_ANSWER,
     render_player,
     SCREEN,
@@ -19,6 +18,7 @@ from utils import (  # PYGAME
 
 
 from pykinect2 import PyKinectV2
+import csv
 import pygame
 import random
 
@@ -27,9 +27,18 @@ from components.text import Text
 
 class Game_4:
     def __init__(self):
+        self.punch_frame_length = 4
+        self.player_size = Size(
+            int(KINECT_FRAME_SIZE.W / 1.5),
+            int(KINECT_FRAME_SIZE.H / 1.5))
+
+        self.should_play_audio = True
+        self.should_load_next_question = True
+        self.player_reset = True
+        self.question = True
         self.punch_frame = 0
         self.punch = None
-        self.punch_frame_length = 4
+        self.status = None
 
         self.bg = pygame.image.load('game_4/game_4.png')
         self.q_tab = pygame.image.load('game_4/Q-tab.png')
@@ -44,31 +53,34 @@ class Game_4:
         self.player_right = pygame.image.load('game_4/player-right.png')
         self.player_right_big = pygame.image.load('game_4/player-right-big.png')
 
+        self.health_red = pygame.image.load('game_4/health-red.png')
+        self.health_green = pygame.image.load('game_4/health-green.png')
+
         self.body_frame = None
         self.body_index_frame = None
 
-        self.player_size = Size(
-            int(KINECT_FRAME_SIZE.W / 1.5),
-            int(KINECT_FRAME_SIZE.H / 1.5))
+        self.new_questions = []
+        self.right_questions = []
+        self.wrong_questions = []
 
-        self.question = {
-            'text': 'this is text',
-            'optoin1': 'opt a',
-            'optoin2': 'second option',
-            'answer': 2,
-        }
+        with open('game_4/questions.csv', 'rb') as f:
+            reader = csv.reader(f)
+            for row in reader:
+                question = {
+                    'text': row[0],
+                    'option1': row[1],
+                    'option2': row[2],
+                }
+                if row[3] == 'A':
+                    question['answer'] = 1
+                elif row[3] == 'B':
+                    question['answer'] = 2
+                self.new_questions.append(question)
 
         # self.tab = pygame.image.load('tab.png')
-        EVENT_STREAM.subscribe(self.event_handler)
         KINECT_EVENT_STREAM.subscribe(self.event_handler)
 
     def event_handler(self, e):
-        if e.type == pygame.KEYDOWN:
-            if e.key == pygame.K_LEFT:
-                self.punch = 'player_left'
-            if e.key == pygame.K_RIGHT:
-                self.punch = 'player_right'
-
         if e.type == NEW_BODY_FRAME_EVENT:
             self.body_frame = e.body_frame
         elif e.type == NEW_BODY_INDEX_FRAME_EVENT:
@@ -86,7 +98,21 @@ class Game_4:
     # def player_punch_right(self):
     #     pass
 
+    def load_next_question(self):
+        q_idx = random.randint(0, len(self.new_questions) - 1)
+        self.question = self.new_questions.pop(q_idx)
+        self.should_load_next_question = False
+        self.player_reset = False
+        self.should_play_audio = True
+        self.status = None
+
     def render(self):
+        if self.should_load_next_question:
+            if self.player_reset:
+                self.load_next_question()
+
+        question_text = Text(self.question['text'], FONT_DROID, 40, (15, 244, 198))
+
         SCREEN.blit(pygame.transform.scale(self.bg, (SCREEN_SIZE.W, SCREEN_SIZE.H)), (0, 0))
         # SCREEN.blit(self.croc_left, (330, 275))
         # SCREEN.blit(self.croc_right, (530, 275))
@@ -99,6 +125,13 @@ class Game_4:
 
         # SCREEN.blit(self.player_left_big, (130, 190))
         # SCREEN.blit(self.player_right_big, (430, 190))
+        health_rect = self.health_red.get_rect()
+        health_rect.midtop = (SCREEN_SIZE.W / 2, 20)
+        SCREEN.blit(self.health_red, health_rect)
+        SCREEN.blit(
+            self.health_green,
+            health_rect,
+            (0, 0, 0.5 * health_rect.width, health_rect.height))
 
         if not self.punch == 'croc_left':
             SCREEN.blit(self.croc_left, (330, 275))
@@ -148,7 +181,6 @@ class Game_4:
                 self.player_size,
                 'bottom center')
 
-            print self.body_frame.bodies
             for body in self.body_frame.bodies:
                 if not body.is_tracked:
                     continue
@@ -170,14 +202,29 @@ class Game_4:
                         self.punch = 'player_left'
                     elif self.question['answer'] == 2:
                         self.punch = 'player_right'
+                    self.status = 'correct'
+
+                    if self.should_play_audio:
+                        self.should_play_audio = False
+                        CORRECT_ANSWER.play()
+                    self.should_load_next_question = True
 
                 elif not player_choice == 0:
                     if self.question['answer'] == 1:
                         self.punch = 'croc_right'
                     elif self.question['answer'] == 2:
                         self.punch = 'croc_left'
+                    self.status = 'incorrect'
 
-                print player_choice, self.question['answer'], self.punch
-
+                    if self.should_play_audio:
+                        self.should_play_audio = False
+                        INCORRECT_ANSWER.play()
+                else:
+                    if self.should_load_next_question:
+                        if self.status == 'correct':
+                            right_questions.append(question)
+                        elif self.status == 'incorrect':
+                            wrong_questions.append(question)
+                        self.player_reset = True
 
         pygame.display.update()
