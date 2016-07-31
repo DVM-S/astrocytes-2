@@ -47,7 +47,8 @@ class Astrocytes:
                 if ACTIVE[-1] == 'pause_screen':
                     self.pause_screen.hide()
                 else:
-                    ACTIVE.append('pause_screen')
+                    if not ACTIVE[-1] == 'settings_screen':
+                        ACTIVE.append('pause_screen')
 
     def run(self):
         clock = pygame.time.Clock()

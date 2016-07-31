@@ -30,7 +30,7 @@ class Sidebar(object):
             self.hidden = False
 
         if self.width < self.max_witdh:
-            self.width += 45
+            self.width += 50
 
         SCREEN.fill(
             (100, 100, 100),
