@@ -74,6 +74,12 @@ class Menu:
             fg=pygame.image.load('menu/g5f.png'),
         )
 
+        self.hamburger = Button('menu', (
+                51 * SCREEN_SIZE.W / 1024,
+                31 * SCREEN_SIZE.H / 768),
+            bg=pygame.image.load('menu/hamburger.png')
+        )
+
     def render(self):
         SCREEN.blit(self.bg, (0, 0))
 
@@ -95,3 +101,6 @@ class Menu:
         self.btn_5.render((
             ((22 + 10) / 1024.0) * SCREEN_SIZE.W,
             ((420 + 60) / 768.0) * SCREEN_SIZE.H))
+        self.hamburger.render((
+            ((944) / 1024.0) * SCREEN_SIZE.W,
+            ((21) / 768.0) * SCREEN_SIZE.H))
