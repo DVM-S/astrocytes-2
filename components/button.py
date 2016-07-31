@@ -19,9 +19,9 @@ class Button:
         self.fg = fg or bg
         self.text = text
 
-        self.left_click_callback = on_left_click
-        self.middle_click_callback = on_middle_click
-        self.right_click_callback = on_right_click
+        self.on_left_click = on_left_click
+        self.on_middle_click = on_middle_click
+        self.on_right_click = on_right_click
 
         self.is_focused = False
 
@@ -53,16 +53,16 @@ class Button:
             (self.y < e.pos[1] and e.pos[1] < self.y + self.h)
         ):
             if e.button == 1:
-                if self.left_click_callback:
-                    self.left_click_callback()
+                if self.on_left_click:
+                    self.on_left_click()
 
             elif e.button == 2:
-                if self.middle_click_callback:
-                    self.middle_click_callback()
+                if self.on_middle_click:
+                    self.on_middle_click()
 
             elif e.button == 3:
-                if self.right_click_callback:
-                    self.right_click_callback()
+                if self.on_right_click:
+                    self.on_right_click()
 
     def render(self, pos):
         (self.x, self.y) = pos

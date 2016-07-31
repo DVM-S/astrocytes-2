@@ -15,6 +15,7 @@ from game_3.game_3 import Game_3
 from menu.menu import Menu
 from components.pause_screen import PauseScreen
 from profile_page.profile_page import ProfilePage
+from components.settings_screen import SettingsScreen
 
 from reg_form.reg_form import RegForm
 
@@ -28,6 +29,7 @@ class Astrocytes:
         self.menu = Menu()
         self.pause_screen = PauseScreen()
         self.profile_page = ProfilePage()
+        self.settings_screen = SettingsScreen()
         self.reg_form = RegForm()
         self.game_1 = Game_1()
         self.game_2 = Game_2()
@@ -42,11 +44,11 @@ class Astrocytes:
     def check_pause(self, e):
         if e.type == pygame.KEYDOWN:
             if e.key == pygame.K_ESCAPE:
-                if ACTIVE[-1] == 'pause-screen':
-                    self.pause_screen.hide()
+                if ACTIVE[-1] == 'pause_screen':
+                    self.settings_screen.hide()
                     ACTIVE.pop()
                 else:
-                    ACTIVE.append('pause-screen')
+                    ACTIVE.append('pause_screen')
 
     def run(self):
         clock = pygame.time.Clock()
@@ -90,11 +92,14 @@ class Astrocytes:
                         body_index_frame=KINECT.get_last_body_index_frame())
                 self.game_3.render()
 
-            elif ACTIVE[-1] == 'pause-screen':
+            elif ACTIVE[-1] == 'pause_screen':
                 self.pause_screen.render()
 
             elif ACTIVE[-1] == 'profile_page':
                 self.profile_page.render()
+
+            elif ACTIVE[-1] == 'settings_screen':
+                self.settings_screen.render()
 
             elif ACTIVE[-1] == 'reg_form':
                 self.reg_form.render()

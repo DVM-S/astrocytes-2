@@ -21,7 +21,7 @@ class PauseScreen(Sidebar):
 
     def init_buttons(self):
         self.btn_back = Button(
-            'pause-screen',
+            'pause_screen',
             (self.max_witdh, 50),
             bg=(80, 80, 80),
             fg=(50, 50, 50),
@@ -29,7 +29,7 @@ class PauseScreen(Sidebar):
             on_left_click=self.load_prev)
 
         self.btn_menu = Button(
-            'pause-screen',
+            'pause_screen',
             (self.max_witdh, 50),
             bg=(80, 80, 80),
             fg=(50, 50, 50),
@@ -37,16 +37,12 @@ class PauseScreen(Sidebar):
             on_left_click=self.load_menu)
 
         self.btn_quit = Button(
-            'pause-screen',
+            'pause_screen',
             (self.max_witdh, 50),
             bg=(80, 80, 80),
             fg=(50, 50, 50),
             text=Text('Quit', color=COLOR_WHITE),
             on_left_click=self.quit_game)
-
-    def hide(self):
-        self.width = 0
-        self.hidden = True
 
     def load_menu(self):
         self.hide()

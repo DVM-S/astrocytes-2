@@ -12,12 +12,14 @@ from components.text import Text
 
 def load_game(idx):
     ACTIVE.append('game_%d' % (idx))
-    print 'GAME %d LOADED' % (idx)
 
 
 def load_profile_page():
     ACTIVE.append('profile_page')
-    print 'PROFILE LOADED'
+
+
+def load_settings_screen():
+    ACTIVE.append('settings_screen')
 
 
 class Menu:
@@ -77,7 +79,8 @@ class Menu:
         self.hamburger = Button('menu', (
                 51 * SCREEN_SIZE.W / 1024,
                 31 * SCREEN_SIZE.H / 768),
-            bg=pygame.image.load('menu/hamburger.png')
+            bg=pygame.image.load('menu/hamburger.png'),
+            on_left_click=load_settings_screen
         )
 
     def render(self):
