@@ -102,7 +102,6 @@ class Game_4:
     def load_next_question(self):
         q_idx = random.randint(0, len(self.new_questions) - 1)
         self.question = self.new_questions.pop(q_idx)
-        print self.question
         self.should_load_next_question = False
         self.player_reset = False
         self.triggered_once_this_turn = False
@@ -174,18 +173,29 @@ class Game_4:
 
         SCREEN.blit(self.q_tab, (0, 601))
 
-        n = 30
-
         question_text = self.question['text']
-        question_text = [question_text[i:i+n] for i in range(0, len(question_text), n)]
+        question_text = [question_text[i:i+30] for i in range(0, len(question_text), 30)]
         for (i, line) in enumerate(question_text):
             line = Text(line, FONT_DROID, 30, (15, 244, 198))
             line_rect = line.get_rect()
             line_rect.center = (SCREEN_SIZE.W / 2, SCREEN_SIZE.H - 140 + (0.5 + i) * line_rect.height)
             line.render(line_rect)
 
-        option1 = Text(self.question['option1'], FONT_DROID, 40, (1, 22, 39))
-        option2 = Text(self.question['option2'], FONT_DROID, 40, (1, 22, 39))
+        option1 = self.question['option1']
+        option1 = [option1[i:i+30] for i in range(0, len(option1), 10)]
+        for (i, line) in enumerate(option1):
+            line = Text(line, FONT_DROID, 30, (1, 22, 39))
+            line_rect = line.get_rect()
+            line_rect.center = (15 + 230 / 2, SCREEN_SIZE.H - 90 - 20 + (1 + i) * line_rect.height)
+            line.render(line_rect)
+
+        option2 = self.question['option2']
+        option2 = [option2[i:i+30] for i in range(0, len(option2), 10)]
+        for (i, line) in enumerate(option2):
+            line = Text(line, FONT_DROID, 30, (1, 22, 39))
+            line_rect = line.get_rect()
+            line_rect.center = (SCREEN_SIZE.W - 15 - 230 / 2, SCREEN_SIZE.H - 90 - 20 + (1 + i) * line_rect.height)
+            line.render(line_rect)
 
         if self.body_frame is not None:
             render_player(
