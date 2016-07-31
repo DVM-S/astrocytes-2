@@ -32,13 +32,13 @@ class Game_4:
             int(KINECT_FRAME_SIZE.W / 1.5),
             int(KINECT_FRAME_SIZE.H / 1.5))
 
-        self.should_play_audio = True
+        self.health = 100.0
+        self.triggered_once_this_turn = False
         self.should_load_next_question = True
         self.player_reset = True
         self.question = True
         self.punch_frame = 0
         self.punch = None
-        self.status = None
 
         self.bg = pygame.image.load('game_4/game_4.png')
         self.q_tab = pygame.image.load('game_4/Q-tab.png')
@@ -101,10 +101,10 @@ class Game_4:
     def load_next_question(self):
         q_idx = random.randint(0, len(self.new_questions) - 1)
         self.question = self.new_questions.pop(q_idx)
+        print self.question['answer']
         self.should_load_next_question = False
         self.player_reset = False
-        self.should_play_audio = True
-        self.status = None
+        self.triggered_once_this_turn = False
 
     def render(self):
         if self.should_load_next_question:
@@ -131,7 +131,7 @@ class Game_4:
         SCREEN.blit(
             self.health_green,
             health_rect,
-            (0, 0, 0.5 * health_rect.width, health_rect.height))
+            (0, 0, (self.health / 100.0) * health_rect.width, health_rect.height))
 
         if not self.punch == 'croc_left':
             SCREEN.blit(self.croc_left, (330, 275))
@@ -202,29 +202,30 @@ class Game_4:
                         self.punch = 'player_left'
                     elif self.question['answer'] == 2:
                         self.punch = 'player_right'
-                    self.status = 'correct'
 
-                    if self.should_play_audio:
-                        self.should_play_audio = False
+                    if not self.triggered_once_this_turn:
+                        self.triggered_once_this_turn = True
                         CORRECT_ANSWER.play()
-                    self.should_load_next_question = True
+                        self.right_questions.append(self.question)
+                        self.health += 10
+                        if self.health > 100:
+                            self.health = 100
+                        self.should_load_next_question = True
 
                 elif not player_choice == 0:
                     if self.question['answer'] == 1:
                         self.punch = 'croc_right'
                     elif self.question['answer'] == 2:
                         self.punch = 'croc_left'
-                    self.status = 'incorrect'
 
-                    if self.should_play_audio:
-                        self.should_play_audio = False
+                    if not self.triggered_once_this_turn:
+                        self.triggered_once_this_turn = True
                         INCORRECT_ANSWER.play()
+                        self.wrong_questions.append(self.question)
+                        self.health -= 10
+                        self.should_load_next_question = True
                 else:
                     if self.should_load_next_question:
-                        if self.status == 'correct':
-                            right_questions.append(question)
-                        elif self.status == 'incorrect':
-                            wrong_questions.append(question)
                         self.player_reset = True
 
         pygame.display.update()
