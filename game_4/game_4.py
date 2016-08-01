@@ -1,9 +1,5 @@
-from utils import (  # COLORS & FONTS
-    COLOR_RED,
-    COLOR_YELLOW,
-    FONT_DROID)
+from utils import FONT_DROID, STORE
 from utils import (  # KINECT
-    KINECT,
     KINECT_EVENT_STREAM,
     KINECT_FRAME_SIZE,
     NEW_BODY_FRAME_EVENT,
@@ -23,6 +19,8 @@ import time
 import pygame
 import random
 
+
+from api import get_questions
 from components.text import Text
 
 
@@ -67,19 +65,19 @@ class Game_4:
         self.right_questions = []
         self.wrong_questions = []
 
-        with open('game_4/questions.csv', 'rb') as f:
-            reader = csv.reader(f)
-            for row in reader:
-                question = {
-                    'text': row[0],
-                    'option1': row[1],
-                    'option2': row[2],
-                }
-                if row[3] == 'A':
-                    question['answer'] = 1
-                elif row[3] == 'B':
-                    question['answer'] = 2
-                self.new_questions.append(question)
+        # with open('game_4/questions.csv', 'rb') as f:
+        #     reader = csv.reader(f)
+        #     for row in reader:
+        #         question = {
+        #             'text': row[0],
+        #             'option1': row[1],
+        #             'option2': row[2],
+        #         }
+        #         if row[3] == 'A':
+        #             question['correct'] = 1
+        #         elif row[3] == 'B':
+        #             question['correct'] = 2
+        #         self.new_questions.append(question)
 
         KINECT_EVENT_STREAM.subscribe(self.event_handler)
 
@@ -88,6 +86,13 @@ class Game_4:
             self.body_frame = e.body_frame
         elif e.type == NEW_BODY_INDEX_FRAME_EVENT:
             self.body_index_frame = e.body_index_frame
+
+    def get_questions(self):
+        self.new_questions = get_questions(
+            STORE['username'],
+            STORE['api_key'],
+            'punch',
+            1)
 
     def load_next_question(self):
         q_idx = random.randint(0, len(self.new_questions) - 1)
@@ -169,7 +174,7 @@ class Game_4:
 
         SCREEN.blit(self.q_tab, (0, 601))
 
-        question_text = self.question['text']
+        question_text = self.question['question_text']
         question_text = [question_text[i:i+30] for i in range(0, len(question_text), 30)]
         for (i, line) in enumerate(question_text):
             line = Text(line, FONT_DROID, 30, (15, 244, 198))
@@ -225,10 +230,10 @@ class Game_4:
                 if spine_mid - hand_right > 0.5:
                     player_choice = 2
 
-                if player_choice == self.question['answer']:
-                    if self.question['answer'] == 1:
+                if player_choice == self.question['correct']:
+                    if self.question['correct'] == 1:
                         self.punch = 'player_left'
-                    elif self.question['answer'] == 2:
+                    elif self.question['correct'] == 2:
                         self.punch = 'player_right'
 
                     if not self.triggered_once_this_turn:
@@ -241,9 +246,9 @@ class Game_4:
                         self.should_load_next_question = True
 
                 elif not player_choice == 0:
-                    if self.question['answer'] == 1:
+                    if self.question['correct'] == 1:
                         self.punch = 'croc_right'
-                    elif self.question['answer'] == 2:
+                    elif self.question['correct'] == 2:
                         self.punch = 'croc_left'
 
                     if not self.triggered_once_this_turn:

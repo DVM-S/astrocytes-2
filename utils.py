@@ -20,6 +20,11 @@ class Size:
 
 
 # GLOBAL CONSTANTS
+STORE = {
+    'api_key': None,
+    'username': None,
+}
+
 KINECT = PyKinectRuntime.PyKinectRuntime(
     PyKinectV2.FrameSourceTypes_Body |
     PyKinectV2.FrameSourceTypes_Color |

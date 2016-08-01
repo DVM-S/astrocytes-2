@@ -95,6 +95,9 @@ class Astrocytes:
                 self.game_3.render()
 
             elif ACTIVE[-1] == 'game_4':
+                if len(self.game_4.new_questions) == 0:
+                    self.game_4.get_questions()
+
                 if KINECT.has_new_body_frame():
                     POST_NEW_BODY_FRAME_EVENT(
                         body_frame=KINECT.get_last_body_frame())

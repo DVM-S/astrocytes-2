@@ -38,7 +38,7 @@ class Menu:
     def init_buttons(self):
         self.logo_btn = Button(
             'menu',
-            (30, 30),
+            (60, 60),
             bg=pygame.image.load('menu/logo.png'),
             on_left_click=open_webpage)
 
